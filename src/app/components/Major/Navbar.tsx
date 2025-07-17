@@ -1,0 +1,26 @@
+import React from 'react'
+import MenuButton from '../Minor/MenuButton'
+import Link from 'next/link'
+import logo from '../../../../public/Frame 38.png'
+import Image from 'next/image'
+import { ShoppingCartIcon } from 'lucide-react'
+
+
+const Navbar = () => {
+  return (
+    <div className='flex justify-between py-5 backdrop-blur-sm sticky items-center px-8 bg-black'>
+      <Image src={logo} alt="Logo" width={150} height={40} />
+      <div className='flex justify-between items-center gap-8 text-[20px]'>
+         <ShoppingCartIcon size={32} color='#fff'/>
+        <Link href=''>
+         <MenuButton buttonType='Login' />
+        </Link>
+        <Link href=''>
+         <MenuButton buttonType='Signup'/>
+        </Link>
+      </div>
+    </div>
+  )
+}
+
+export default Navbar
