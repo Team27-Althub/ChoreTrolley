@@ -1,6 +1,6 @@
 import React from 'react';
 import { ChevronDown, Calendar, MapPin, Clock } from 'lucide-react';
-import heroBG from '../../../../public/heroImage.svg'
+import heroBG from '../../../../public/heroImage.png'
 import Image from 'next/image';
 
 const Hero = () => {
@@ -64,7 +64,7 @@ const Hero = () => {
             <Image
                 src={heroBG}
                 alt='girl smiling'
-                className='absolute bottom-0 h-[450px] w-96 right-20 z-0'
+                className='absolute bottom-0 lg:h-[450px] h-[350px] w-[190px] md:w-[250px] md:right-20 right-0   z-0'
             />
         </section>
         

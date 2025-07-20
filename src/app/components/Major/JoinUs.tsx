@@ -4,8 +4,8 @@ import Image from 'next/image'; // Make sure to import your image properly
 
 const JoinUs = () => {
   return (
-    <section className="bg-gradient-to-r from-[#003d2f] to-[#037b5c] text-white  px-6 lg:ps-24 p rounded-lg md:py-7  pt-7">
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between">
+    <section className="bg-gradient-to-r from-[#003d2f] to-[#037b5c] text-white  px-6 lg:ps-24 p rounded-lg   pt-7">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
         {/* Text Section */}
         <div className="">
           <h1 className="text-4xl lg:text-5xl font-bold mb-6">
