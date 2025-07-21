@@ -12,10 +12,10 @@ const Navbar = () => {
       <Image src={logo} alt="Logo" width={150} height={40} />
       <div className='flex justify-between items-center gap-4 md:gap-8 text-[20px]'>
          {/* <ShoppingCartIcon size={32} color='#fff'/> */}
-        <Link href=''>
+        <Link href='/login'>
          <MenuButton buttonType='Login' />
         </Link>
-        <Link href=''>
+        <Link href='signUp'>
          <MenuButton buttonType='Signup'/>
         </Link>
       </div>
