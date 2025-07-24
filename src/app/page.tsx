@@ -16,6 +16,7 @@ import WhyUs1 from "./components/Major/WhyUs1";
 import WhyUs2 from "./components/Major/WhyUs2";
 import JoinUs from "./components/Major/JoinUs";
 import Hero from "./components/Major/Hero";
+import LoggedInNavbar from "./components/Major/LoggedInNavbar";
 
 export default function Home() {
   return (
@@ -54,7 +55,7 @@ export default function Home() {
 
 
       <div className="bg-[#F5F5F4] lg:px-14 px-9  pb-20 pt-25" id="whyUs">
-        <h2 className="text-center text-3xl font-bold ">What Our Customers Say</h2>
+        <h2 className="text-center text-3xl font-bold  ">What Our Customers Say</h2>
         <p className="text-center text-xl text-[#8a8989] my-2 ">Hear from real users who have simplified their lives with ChoreTrolly.</p> 
         <div className="grid md:grid-cols-3 grid-cols-1 gap-5 mt-15">
           <WhyUs1 

@@ -20,7 +20,11 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
-        loginMain: 'bg-[#01332833] hover:bg-[#013328] hover:cursor-pointer text-white w-full'
+        loginMain: 'bg-[#01332833] hover:bg-[#013328] hover:cursor-pointer text-white w-full',
+        dashboardDefault: ' hover:cursor-pointer text',
+        statusInProgress: 'bg-[#0027E93B] rounded-2xl h-[37px] text-[14px]',
+        statusPending: 'bg-[#FFE0A8] rounded-2xl h-[37px]',
+        statusCompleted: 'bg-[#0CEA0052] rounded-2xl h-[37px]',
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",

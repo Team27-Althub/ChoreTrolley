@@ -15,7 +15,7 @@ const Navbar = () => {
         <Link href='/login'>
          <MenuButton buttonType='Login' />
         </Link>
-        <Link href='signUp'>
+        <Link href='/signUp'>
          <MenuButton buttonType='Signup'/>
         </Link>
       </div>
