@@ -14,19 +14,19 @@ const LoggedInNavbar = () => {
 
       {/* Navigation Links */}
       <nav className="hidden md:flex items-center gap-10 text-base font-medium">
-        <Link href={''}>
+        <Link href={'/dashboard'}>
          <span className="group relative text-black font-bold">
             Home
              <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-[#013328] transition-all duration-300 group-hover:w-full"></span>
         </span>
         </Link>
-        <Link href={''}>
+        <Link href={'/services'}>
           <span className="text-gray-500 group relative hover:text-black">
             Services
             <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-[#013328] transition-all duration-300 group-hover:w-full"></span>
           </span>
         </Link>
-        <Link href={''}>
+        <Link href={'/groceries'}>
           <span className="text-gray-500 group relative hover:text-black">
             Groceries
             <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-[#013328] transition-all duration-300 group-hover:w-full"></span>
