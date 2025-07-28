@@ -1,12 +1,17 @@
+'use client'
 import React from 'react'
 import logo from '../../../../public/miniLogo.png'
 import Image from 'next/image'
 import { ShoppingCart, Bell } from 'lucide-react'
 import Link from 'next/link'
+import { useCart } from 'react-use-cart'
 
 const LoggedInNavbar = () => {
+
+  const { totalItems } = useCart()
+
   return (
-    <div className="w-full h-20 bg-white shadow-md border border-gray-200 flex items-center justify-between px-6">
+    <div className="w-full h-20 bg-white shadow-md border border-gray-200 sticky top-0 flex items-center justify-between px-6">
       {/* Logo */}
       <div className="flex items-center">
         <Image src={logo} alt="Logo" width={40} height={40} />
@@ -14,19 +19,19 @@ const LoggedInNavbar = () => {
 
       {/* Navigation Links */}
       <nav className="hidden md:flex items-center gap-10 text-base font-medium">
-        <Link href={''}>
+        <Link href={'/dashboard'}>
          <span className="group relative text-black font-bold">
             Home
              <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-[#013328] transition-all duration-300 group-hover:w-full"></span>
         </span>
         </Link>
-        <Link href={''}>
+        <Link href={'/services'}>
           <span className="text-gray-500 group relative hover:text-black">
             Services
             <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-[#013328] transition-all duration-300 group-hover:w-full"></span>
           </span>
         </Link>
-        <Link href={''}>
+        <Link href={'/groceries'}>
           <span className="text-gray-500 group relative hover:text-black">
             Groceries
             <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-[#013328] transition-all duration-300 group-hover:w-full"></span>
@@ -37,12 +42,14 @@ const LoggedInNavbar = () => {
       {/* Right Section: Cart, Bell, User Avatar */}
       <div className="flex items-center gap-6">
         {/* Cart with badge */}
-        <div className="relative">
+       <Link href={'/cart'}>
+         <div className="relative hover:cursor-pointer">
           <ShoppingCart className="w-6 h-6" />
           <div className="absolute -top-1 -right-2 bg-[#013328] text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
-            0
+            {totalItems}
           </div>
         </div>
+       </Link>
 
         {/* Bell icon */}
         <Bell className="w-6 h-6" />
