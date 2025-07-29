@@ -44,7 +44,7 @@ const GroceriesPage = () => {
             {data.map((service, idx) => {
 
                    const addingItems = ()=>{
-                      addItem(service)
+                      addItem({ ...service, id: service.id.toString() })
                   
                       setTimeout(()=> {
                         setDisplay1('block')
@@ -60,7 +60,7 @@ const GroceriesPage = () => {
                   className=" bg-[#fff] rounded-xl  h-80 w-full flex   flex-col gap-1 " key={idx}>
                   <Image src={image} alt="" className='h-[45%] rounded-t-2xl' />
                   <div className='px-2 mt-4'>
-                    <h2 className='text-xl font-normal text-left'>{service.item}</h2>
+                    <h2 className='text-xl font-normal text-left'>{service.name}</h2>
                     <p className='text-sm text-gray-500'>{service.category}</p>
                     <div className='flex gap-3'>
                       <p className='text-sm'>{service.star}</p>
