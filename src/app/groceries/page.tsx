@@ -9,7 +9,7 @@ import { useCart } from 'react-use-cart'
 import { useState } from 'react'
 import ResponseModal from '../components/Minor/ResponseModal'
 
-const page = () => {
+const GroceriesPage = () => {
 
   const [display1, setDisplay1] = useState('hidden')
   // const {addItem} = useCart()
@@ -84,4 +84,4 @@ const page = () => {
   )
 }
 
-export default page
+export default GroceriesPage

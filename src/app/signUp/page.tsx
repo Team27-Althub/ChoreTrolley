@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/select"
 
 
-const page = () => {
+const SignupPage = () => {
     const [showPassword, setShowPassword] = useState(false)
 
   return (
@@ -97,4 +97,4 @@ const page = () => {
   )
 }
 
-export default page
+export default SignupPage
