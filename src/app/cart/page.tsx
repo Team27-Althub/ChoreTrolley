@@ -8,12 +8,12 @@ const CartPage = () => {
   
 
   const {
-    isEmpty,
-    totalUniqueItems,
+    // isEmpty,
+    // totalUniqueItems,
     items,
     cartTotal,
-    updateItemQuantity,
-    removeItem,
+    // updateItemQuantity,
+    // removeItem,
   } = useCart();
 
   return (

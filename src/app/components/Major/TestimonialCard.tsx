@@ -1,10 +1,10 @@
 import React from 'react'
-import Image from 'next/image'
+// import Image from 'next/image'
 
 
 
 type props = {
-    category: any,
+    category: string,
     opinion: string,
     rating: any,
     name: string,
