@@ -4,7 +4,7 @@ import LoggedInNavbar from '../components/Major/LoggedInNavbar'
 import { useCart } from 'react-use-cart'
 import { Button } from '@/components/ui/button'
 
-const page = () => {
+const CartPage = () => {
   
 
   const {
@@ -78,4 +78,4 @@ const page = () => {
   )
 }
 
-export default page
+export default CartPage

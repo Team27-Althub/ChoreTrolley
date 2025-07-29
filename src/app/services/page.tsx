@@ -4,7 +4,7 @@ import image from '../../../public/service image.png'
 import Image from 'next/image'
 import ServiceFilter from './ServiceFilter'
 
-const page = () => {
+const ServicePage = () => {
 
   const data = [
         {id:1 , Store: 'Expert Home Cleaning', category: 'Home Cleaning', price: '200', description:'Top-rated home cleaning service with eco-friendly products. Deep cleaning, regular maintenance, and move-out cleans.', rating: '5.0', star: '⭐⭐⭐⭐⭐'},
@@ -51,4 +51,4 @@ const page = () => {
   )
 }
 
-export default page
+export default ServicePage

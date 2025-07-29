@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
 
-const page = () => {
+const ChangePasswordPage = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [showPassword2, setShowPassword2] = useState(false)
 
@@ -66,4 +66,4 @@ const page = () => {
   )
 }
 
-export default page
+export default ChangePasswordPage
