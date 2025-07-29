@@ -82,7 +82,7 @@ const ServiceFilter: React.FC = () => {
     setSelectedServiceTypes([]);
   };
 
-  const renderStars = (count: number, rating: string): JSX.Element[] => {
+  const renderStars = (count: number, rating: string): React.ReactNode[] => {
     return Array.from({ length: 5 }, (_, i) => (
       <span
         key={i}
