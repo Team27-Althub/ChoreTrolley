@@ -148,7 +148,7 @@ const ProfileOrders = () => {
                   </h4>
                   <p className='text-sm text-[#0000008e]'>{order.deliveryDate}</p>
                 </div>
-                <Button variant={`status${order.deliveryStatus}`}>
+                <Button variant={`status${order.deliveryStatus}` as 'statusInProgress' | 'statusPending' | 'statusCompleted'}>
                   {order.deliveryStatus}
                 </Button>
               </div>
@@ -156,7 +156,7 @@ const ProfileOrders = () => {
             </div>
           ))
         ) : (
-          <p className="text-center text-sm text-gray-500 mt-6">
+          <p className="text-center text-sm text-gray-400 mt-6">
             No orders found for this status.
           </p>
         )}
