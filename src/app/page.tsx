@@ -55,8 +55,8 @@ export default function Home() {
 
 
       <div className="bg-[#F5F5F4] lg:px-14 px-9  pb-20 pt-25" id="whyUs">
-        <h2 className="text-center text-3xl font-bold  ">What Our Customers Say</h2>
-        <p className="text-center text-xl text-[#8a8989] my-2 ">Hear from real users who have simplified their lives with ChoreTrolly.</p> 
+        <h2 className="text-center text-3xl font-bold  ">Why Choose ChoreTrolly?</h2>
+        <p className="text-center text-xl text-[#8a8989] my-2 ">ChoreTrolly is not just any App, we’re your partner in managing household needs.</p> 
         <div className="grid md:grid-cols-3 grid-cols-1 gap-5 mt-15">
           <WhyUs1 
             first="Verified Professionals" 
@@ -97,14 +97,14 @@ export default function Home() {
 
 
 
-      <div className="bg-[#F5F5F4]  py-20"  id="testimonials">
+      <div className="bg-[#F5F5F4]  py-20  lg:px-20 px-9"  id="testimonials">
         <h2 className="text-center text-3xl font-bold ">What Our Customers Say</h2>
         <p className="text-center text-xl text-[#8a8989] my-2 ">Hear from real users who have simplified their lives with ChoreTrolly.</p> 
-        <div className=" grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-10 px-14 mt-15 ">
+        <div className=" grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-20 w-full mt-15 ">
           <TestimonialCard 
             category={'Groceries'} 
             opinion="“Harry came in and helped do the laundry that has been piling up for weeks due to our very busy work schedule. His diligence and honesty is exceptional.”"
-            rating={<Star color="#ffdd00" />}
+            rating={'⭐⭐⭐⭐⭐'}
             name="James"
             role="developer"
             dateJoined="2025"
@@ -113,7 +113,7 @@ export default function Home() {
           <TestimonialCard 
             category={'Groceries'} 
             opinion="“Harry came in and helped do the laundry that has been piling up for weeks due to our very busy work schedule. His diligence and honesty is exceptional.”"
-            rating={<Star color="#ffdd00" />}
+            rating={'⭐⭐⭐⭐⭐'}
             name="James"
             role="developer"
             dateJoined="2025"
@@ -122,7 +122,7 @@ export default function Home() {
           <TestimonialCard 
             category={'Groceries'} 
             opinion="“Harry came in and helped do the laundry that has been piling up for weeks due to our very busy work schedule. His diligence and honesty is exceptional.”"
-            rating={<Star color="#ffdd00" />}
+            rating={'⭐⭐⭐⭐⭐'}
             name="James"
             role="developer"
             dateJoined="2025"
@@ -131,7 +131,7 @@ export default function Home() {
           <TestimonialCard 
             category={'Groceries'} 
             opinion="“Harry came in and helped do the laundry that has been piling up for weeks due to our very busy work schedule. His diligence and honesty is exceptional.”"
-            rating={<Star color="#ffdd00" />}
+            rating={'⭐⭐⭐⭐⭐'}
             name="James"
             role="developer"
             dateJoined="2025"
@@ -140,7 +140,7 @@ export default function Home() {
           <TestimonialCard 
             category={'Groceries'} 
             opinion="“Harry came in and helped do the laundry that has been piling up for weeks due to our very busy work schedule. His diligence and honesty is exceptional.”"
-            rating={<Star color="#ffdd00" />}
+            rating={'⭐⭐⭐⭐⭐'}
             name="James"
             role="developer"
             dateJoined="2025"
@@ -149,7 +149,7 @@ export default function Home() {
           <TestimonialCard 
             category={'Groceries'} 
             opinion="“Harry came in and helped do the laundry that has been piling up for weeks due to our very busy work schedule. His diligence and honesty is exceptional.”"
-            rating={<Star color="#ffdd00" />}
+            rating={'⭐⭐⭐⭐⭐'}
             name="James"
             role="developer"
             dateJoined="2025"

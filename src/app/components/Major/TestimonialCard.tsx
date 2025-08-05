@@ -6,7 +6,7 @@ import React from 'react'
 type props = {
     category: string,
     opinion: string,
-    rating: any,
+    rating: string,
     name: string,
     role: string,
     dateJoined: string,
@@ -15,9 +15,9 @@ type props = {
 
 const TestimonialCard = ({category, opinion, rating, name, role, dateJoined, image}:props) => {
   return (
-    <div className='bg-[#fff] rounded-sm max-w-[350px] h-96 p-3 border-[#dddddd] border-2'>
+    <div className='bg-[#fff] rounded-sm   p-3 border-[#dddddd] border-2'>
         <p className='text-[12px] '>{category}</p>
-        <h2 className='text-2xl mb-4 mt-5 text-[#8a8989]'>{opinion}</h2>
+        <h2 className=' text-lg mb-4 mt-5 text-[#8a8989]'>{opinion}</h2>
         <span className=''>{rating}</span>
         <div className='flex justify-between mt-4 items-end'>
             <div className=''>

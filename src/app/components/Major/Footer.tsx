@@ -9,10 +9,10 @@ const Footer = () => {
       <Image src={logo} alt="Logo" width={150} height={40} />
       <p className='text-[#F3F4F6] mt-5'>Helping you find trusted domestic services — fast, <br /> flexible, and close to home.</p>
       <div className='mt-5 flex gap-4'>
-        <InstagramIcon size={32} color='#fff' />
-        <Twitter size={32} color='#fff' />
-        <Linkedin size={32} color='#fff' />
-        <Github size={32} color='#fff' />
+        <InstagramIcon size={20} color='#fff' />
+        <Twitter size={20} color='#fff' />
+        <Linkedin size={20} color='#fff' />
+        <Github size={20} color='#fff' />
       </div>
       <div className='bg-[#fff] mt-10 h-0.5'></div>
       <div className='flex justify-between mt-5 text-[#F3F4F6]'>

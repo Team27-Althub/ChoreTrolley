@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 
 const DashboardOrders = () => {
   return (
-                <div className='bg-white rounded-md py-3 mb-5'>
+                <div className='bg-white rounded-md py-3 mb-5 shadow-xl'>
                     <div className='flex justify-between px-4 py-3'>
                       <h2 className='text-2xl font-semibold'>Ongoing Orders</h2>
                       <p className='text-blue-700'>See all</p>

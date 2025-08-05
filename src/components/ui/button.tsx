@@ -14,17 +14,20 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
-          "border text-white shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
+          "border text-white shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",       
+           anotherOutline:
+          "border hover:cursor-pointer text-black shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
         secondary:
           "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
         ghost:
-          "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+          "hover:bg-accent text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
         loginMain: 'bg-[#01332833] hover:bg-[#013328] hover:cursor-pointer text-white w-full',
         dashboardDefault: ' hover:cursor-pointer text',
         statusInProgress: 'bg-[#0027E93B] rounded-2xl h-[37px] text-[14px]',
         statusPending: 'bg-[#FFE0A8] rounded-2xl h-[37px]',
         statusCompleted: 'bg-[#0CEA0052] rounded-2xl h-[37px]',
+        delete: 'bg-[#E00004] text-white hover:cursor-pointer',
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
