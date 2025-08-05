@@ -5,7 +5,7 @@ import TrackOrderPage, { FullOrderDetails } from './TrackOrderPage'; // Import t
 // Data for the inbox and tracking page
 const inboxMessages: FullOrderDetails[] = [
   {
-    id: 1,
+    id: '1',
     orderId: '#CTS9876',
     deliveryStatus: 'Delivered',
     deliveryDate: 'July 15th, 2025',
@@ -31,7 +31,7 @@ const inboxMessages: FullOrderDetails[] = [
     ],
   },
   {
-    id: 2,
+    id: '2',
     orderId: '#CTS9877',
     deliveryStatus: 'In Transit',
     deliveryDate: 'July 18th, 2025',
