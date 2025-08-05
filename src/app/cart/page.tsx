@@ -61,14 +61,14 @@ const CartPage = () => {
           <div className='flex items-center space-x-4 mt-4 md:mt-0'>
            <div className='flex items-center space-x-2'>
             <Button 
-             onClick={() => updateItemQuantity(item.id, item.quantity - 1)}
+             onClick={() => updateItemQuantity(item.id, item.quantity?? - 1)}
              variant='ghost' 
              className='p-1 h-8 w-8 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300'>
              -
             </Button>
             <span className='text-lg font-medium'>{item.quantity}</span>
             <Button 
-             onClick={() => updateItemQuantity(item.id, item.quantity + 1)}
+             onClick={() => updateItemQuantity(item.id, item.quantity?? + 1)}
              variant='ghost'
              className='p-1 h-8 w-8 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300'>
              +

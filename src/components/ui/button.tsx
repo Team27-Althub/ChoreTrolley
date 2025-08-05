@@ -20,7 +20,7 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
         ghost:
-          "hover:bg-accent text-accent-foreground dark:hover:bg-accent/50",
+          "hover:bg-accent text-black hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
         loginMain: 'bg-[#01332833] hover:bg-[#013328] hover:cursor-pointer text-white w-full',
         dashboardDefault: ' hover:cursor-pointer text',

@@ -13,14 +13,14 @@ const LoggedInNavbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   // Helper function to determine if a link is active
-  const isActive = (href) => pathname === href
+  const isActive = (href:string) => pathname === href
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
   }
 
   return (
-    <div className="w-full h-20 z-50 relative bg-white shadow-md border border-gray-200 sticky top-0 flex items-center justify-between px-6">
+    <div className="w-full h-20 z-50  bg-white shadow-md border border-gray-200 sticky top-0 flex items-center justify-between px-6">
       {/* Logo */}
       <Link href={'/dashbard'}>
         <div className="flex items-center">
