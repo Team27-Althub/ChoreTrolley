@@ -15,20 +15,20 @@ const Dashboard = () => {
       <LoggedInNavbar/>
       <div className='px-10 pb-10'>
 
-        <section className='flex justify-between my-10'>
+        <section className='md:flex justify-between my-10'>
           <h2 className='text-2xl font-semibold'><span className='text-[#727272] font-normal'>Welcome,</span> Ade</h2>
-          <div className='gap-3 flex'>
-            <Button variant='dashboardDefault'className="text-lg rounded-lg text-black border border-2 border-black hover:bg-[#013328] hover:border-0 hover:text-white  hover:cursor-pointer">
+          <div className='gap-3 flex  mt-10 md:mt-0'>
+            <Button variant='dashboardDefault'className="md:text-lg text-sm rounded-lg text-black border border-2 border-black hover:bg-[#013328] hover:border-0 hover:text-white  hover:cursor-pointer">
               Start Shopping Groceries
             </Button>
-            <Button variant='dashboardDefault'className="text-lg text-white rounded-lg bg-[#013328] hover:cursor-pointer">
+            <Button variant='dashboardDefault'className="md:text-lg text-sm text-white rounded-lg bg-[#013328] hover:cursor-pointer">
               Find Household Services
             </Button>
           </div>
         </section>
 
         <div className=''>
-          <div className='grid grid-cols-1 lg:grid-cols-[60%_40%] gap-3 '>
+          <div className='grid grid-cols-1 lg:grid-cols-[60%_40%] gap-5 '>
             <div className=''>
               <FeaturedService/>
               <GroceriesCategories/>

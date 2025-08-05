@@ -7,15 +7,15 @@ const JoinUs = () => {
     <section className="bg-gradient-to-r from-[#003d2f] to-[#037b5c] text-white  px-6 lg:ps-24 p rounded-lg   pt-7">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
         {/* Text Section */}
-        <div className="">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+        <div className=" py-2">
+          <h1 className="text-4xl xl:text-5xl font-bold mb-6">
             Ready to Simplify Your Life
           </h1>
           <p className="text-lg mb-8">
             Join ChoreTrolly today and reclaim your time.
           </p>
           <div className="flex gap-4">
-            <button className="bg-white text-gray-900 font-semibold px-5 py-3 rounded hover:bg-gray-200 transition">
+            <button className="bg-white  text-gray-900 font-semibold lg:px-5 px-2 py-3 rounded hover:bg-gray-200 transition">
               Start Shopping Groceries
             </button>
             <button className="border border-white px-5 py-3 rounded hover:bg-white hover:text-gray-900 transition">
