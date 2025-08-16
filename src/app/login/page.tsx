@@ -7,20 +7,76 @@ import { Label } from "@/components/ui/label"
 import { Eye, EyeOff } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { useLoginMutation } from '@/redux/api/authApi'
+// import Router from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [login, {isLoading}] = useLoginMutation()
+  const [error, setError] = useState<{[key:string] : string}>({})
+  const route = useRouter()
+
+
+
+  const validateForm = () => {
+    let newErrors: { [key: string]: string } = {};
+
+    // SQL Injection detection regex
+    const sqlPattern = /\b(SELECT|INSERT|UPDATE|DELETE|DROP|UNION|--|;|\/\*|\*\/|xp_)\b/i;
+
+    // Empty checks
+    if (!email.trim() || !password) {
+      if (!email.trim()) newErrors.email = "Email is required";
+      if (!password) newErrors.password = "Password is required";
+      setError(newErrors);
+      return false;
+    }
+
+    // Email format check
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = "Enter a valid email address";
+    }
+
+    // SQL Injection detection (applies to BOTH fields)
+    if (sqlPattern.test(email) || sqlPattern.test(password)) {
+      newErrors.general = "Login failed";
+    }
+
+    setError(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+
+
+
+  const loginUser = async (e:React.FormEvent) => {
+    e.preventDefault()
+    if(!validateForm()) return
+
+    try {
+      await login({email,password}).unwrap()
+      route.push('/dashboard')
+    }
+    catch(err:any){
+      setError(err?.data?.message || 'Login Failed, Try again')
+    }
+  }
 
   return (
     <div className='flex justify-center items-center h-screen w-screen bg-[#F5F5F4]'>
-      <div className='px-10 py-5 bg-white shadow-md flex items-center rounded-2xl flex-col w-[90%] md:w-[60%] lg:w-[40%]'>
+      <div className='px-10 py-5 bg-white shadow-[#aaaaaa]  shadow-xl flex items-center rounded-2xl flex-col w-[90%] md:w-[60%] lg:w-[40%]'>
         <Image src={logo} alt="Logo" width={50} height={40} className='mb-10'/>
         <h2 className='text-2xl font-medium'>Welcome Back</h2>
-        <h4 className='text font-normal'>Login into your account</h4>            
-        <form action="" className='w-full px-5 mt-5'>
+        <h4 className='text font-normal'>Login into your account</h4> 
+        {error.general && <p className='text-red-500 text-sm mt-4 font-light'>{error.general}</p>}           
+        <form action="" className='w-full px-5 mt-5' onSubmit={loginUser}>
           <div className="grid w-full items-center gap-3">
             <Label htmlFor="email" className='text-[16px]'>Email</Label>
-            <Input type="email" id="email" placeholder="Enter your email" className='w-full' />
+            <Input type="email" id="email" value={email} onChange={(e)=> setEmail(e.target.value)} placeholder="Enter your email" className='w-full' />
+            {error.email && <p className='text-red-500 text-sm mt-4 font-light'>{error.email}</p>}
           </div>
           <div className="grid w-full items-center gap-3 mt-5">
             <Label htmlFor="password" className='text-[16px]'>Password</Label>
@@ -30,6 +86,8 @@ const LoginPage = () => {
                 id="password"
                 placeholder="Enter your password"
                 className="w-full pr-10"
+                value={password}
+                onChange={(e)=>setPassword(e.target.value)}
               />
               <button
                 type="button"
@@ -39,12 +97,13 @@ const LoginPage = () => {
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
+            {error.password && <p className='text-red-500 text-sm mt-4 font-light'>{error.password}</p>}
           </div>
-          <Link href={'/dashboard'}>
-            <Button variant={'loginMain'} className="text-[18px] mt-10 py-5 rounded-md">
-              Login
+
+            <Button variant={'loginMain'} type='submit' className="text-[18px] mt-10 py-5 rounded-md">
+              {isLoading? 'Signing in' : 'Login'}
             </Button>
-          </Link>
+
           <div className="flex items-center w-full my-5">
             <div className="flex-grow border-t border-gray-300"></div>
             <span className="flex-shrink mx-4 text-gray-400 text-sm">OR</span>

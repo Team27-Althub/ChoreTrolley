@@ -22,7 +22,7 @@ const LoggedInNavbar = () => {
   return (
     <div className="w-full h-20 z-50  bg-white shadow-md border border-gray-200 sticky top-0 flex items-center justify-between px-6">
       {/* Logo */}
-      <Link href={'/dashbard'}>
+      <Link href={'/dashboard'}>
         <div className="flex items-center">
           <Image src={logo} alt="Logo" width={40} height={40} />
         </div>

@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import LoggedInNavbar from '../components/Major/LoggedInNavbar'
 import { Button } from '@/components/ui/button'
@@ -8,9 +9,16 @@ import GroceriesCategories from '../components/Major/GroceriesCategories'
 import DashboardOrders from '../components/Major/DashboardOrders'
 import DashboardDeal from '../components/Major/DashboardDeal'
 
+// import Router from 'next/navigation'
+import { useRouter } from 'next/navigation'
+
 
 const Dashboard = () => {
+
+
   return (
+
+
     <div className='bg-[#F5F5F4] '>
       <LoggedInNavbar/>
       <div className='px-10 pb-10'>
