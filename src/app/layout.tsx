@@ -1,8 +1,12 @@
+'use client'
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { CartProvider } from 'react-use-cart';
+// import { CartProvider } from 'react-use-cart';
 import CartProviderWrapper from "./cartprovider";
+import { store } from "@/redux/store";
+import { Provider } from "react-redux";
+import ProtectedRoute from "@/redux/ProtectRoute";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,7 +22,7 @@ const geistMono = Geist_Mono({
 //   return <CartProvider>{children}</CartProvider>;
 // }
 
-export const metadata: Metadata = {
+ const metadata: Metadata = {
   title: "ChoreTrolley",
   description: "ChoreTrolley — a tech-driven platform designed to simplify home life by providing trusted household services such as cleaning, cooking, laundry, grocery shopping, and more, all in one place.",
 };
@@ -33,9 +37,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <CartProviderWrapper>
-          {children}
-        </CartProviderWrapper>
+        <Provider store={store}>
+        <ProtectedRoute>
+          <CartProviderWrapper>
+            {children}
+          </CartProviderWrapper>
+        </ProtectedRoute>
+        </Provider>
       </body>
     </html>
   );
