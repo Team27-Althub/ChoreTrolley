@@ -57,7 +57,9 @@ const LoginPage = () => {
     if(!validateForm()) return
 
     try {
-      await login({email,password}).unwrap()
+     const result = await login({email,password}).unwrap()
+     sessionStorage.setItem('accessToken', result.data.accessToken)
+     sessionStorage.setItem('refreshToken', result.data.refreshToken)
       route.push('/dashboard')
     }
     catch(err:any){

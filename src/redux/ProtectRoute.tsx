@@ -14,7 +14,7 @@ function ProtectedRoute({ children }) {
   useEffect(() => {
     // This function will run after the component has mounted on the client
     const checkAuth = () => {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("accessToken");
 
       if (!token) {
         // If there's no token and we are NOT on the login page, redirect.
