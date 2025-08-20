@@ -3,7 +3,7 @@ import React from 'react'
 import LoggedInNavbar from '../components/Major/LoggedInNavbar'
 import { Button } from '@/components/ui/button'
 import FeaturedService from '../components/Major/FeaturedService'
-import bowl from '../../../public/1.svg'
+// import bowl from '../../../public/1.svg'
 import Image from 'next/image'
 import GroceriesCategories from '../components/Major/GroceriesCategories'
 import DashboardOrders from '../components/Major/DashboardOrders'
@@ -14,11 +14,7 @@ import { useRouter } from 'next/navigation'
 
 
 const Dashboard = () => {
-
-
   return (
-
-
     <div className='bg-[#F5F5F4] '>
       <LoggedInNavbar/>
       <div className='px-10 pb-10'>
