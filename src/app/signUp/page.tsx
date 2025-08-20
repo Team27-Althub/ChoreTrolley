@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useRouter } from "next/navigation"; // ✅ App Router
+import { useRouter } from "next/navigation"; 
 import { useSignupMutation } from "@/redux/api/authApi";
 import SuccessModal from "../profile/SuccessModal";
 
@@ -98,7 +98,6 @@ const SignupPage = () => {
               {error.general || success}
             </p>
           )}{" "}
-          {/* ✅ show error */}
           <form onSubmit={signUp} className="w-full my-10">
             <div className="grid w-full items-center gap-3 mt-3">
               <Label htmlFor="firstname" className="text-[16px]">
