@@ -22,7 +22,7 @@ const LoginPage = () => {
 
 
   const validateForm = () => {
-    let newErrors: { [key: string]: string } = {};
+    const newErrors: { [key: string]: string } = {};
 
     // SQL Injection detection regex
     const sqlPattern = /\b(SELECT|INSERT|UPDATE|DELETE|DROP|UNION|--|;|\/\*|\*\/|xp_)\b/i;
