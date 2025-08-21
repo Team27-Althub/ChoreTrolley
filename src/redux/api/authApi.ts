@@ -1,5 +1,12 @@
 // 'use client'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import type { BaseQueryFn, FetchArgs, FetchBaseQueryError, BaseQueryApi } from '@reduxjs/toolkit/query';
+
+// --- Token response type ---
+type RefreshResponse = {
+  accessToken: string;
+  refreshToken?: string;
+};
 
 // --- Base query setup ---
 const baseQuery = fetchBaseQuery({
@@ -14,11 +21,11 @@ const baseQuery = fetchBaseQuery({
 });
 
 // --- Base query with re-auth handling ---
-const baseQueryWithReauth = async (
-  args: any,
-  api: { dispatch: any; getState: any },
-  extraOptions: any
-) => {
+const baseQueryWithReauth: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api: BaseQueryApi, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
   if (result.error && result.error.status === 401) {
@@ -27,19 +34,21 @@ const baseQueryWithReauth = async (
     if (refreshToken) {
       const refreshResult = await baseQuery(
         {
-          url: "/auth/refresh-token",       
+          url: "/auth/refresh-token",
           method: "POST",
-          body: { refreshToken },      
+          body: { refreshToken },
         },
         api,
         extraOptions
       );
 
       if (refreshResult.data) {
+        const { accessToken, refreshToken: newRefreshToken } = refreshResult.data as RefreshResponse;
+
         // Save new tokens
-        sessionStorage.setItem("accessToken", refreshResult.data.accessToken);
-        if (refreshResult.data.refreshToken) {
-          sessionStorage.setItem("refreshToken", refreshResult.data.refreshToken);
+        sessionStorage.setItem("accessToken", accessToken);
+        if (newRefreshToken) {
+          sessionStorage.setItem("refreshToken", newRefreshToken);
         }
 
         // Retry the original request with the new token
@@ -75,17 +84,12 @@ const authApi = createApi({
     }),
     logout: builder.mutation({
       query: () => ({
-        url: "/auth/logout", // ✅ change if your backend uses a different path
+        url: "/auth/logout",
         method: "POST",
       }),
     }),
   }),
 });
 
-export const {
-  useLoginMutation,
-  useSignupMutation,
-  useLogoutMutation,
-} = authApi;
-
+export const { useLoginMutation, useSignupMutation, useLogoutMutation } = authApi;
 export default authApi;
