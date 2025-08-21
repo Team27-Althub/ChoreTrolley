@@ -2,11 +2,18 @@
 'use client'
 
 import { useRouter, usePathname } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, ReactNode } from "react";
 
 // This component wraps pages that require authentication.
 // It checks for a token and redirects to the login page if not found.
-function ProtectedRoute({ children }) {
+
+
+type ProtectedRouteProps = {
+  children: ReactNode;
+};
+
+
+function ProtectedRoute({ children }: ProtectedRouteProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [loading, setLoading] = useState(true);
