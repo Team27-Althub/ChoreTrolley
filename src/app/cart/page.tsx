@@ -11,8 +11,7 @@ import ConfirmModal from "../profile/ConfirmModal"
 const CartPage = () => {
   const { isEmpty, items, cartTotal, updateItemQuantity, removeItem } =
     useCart();
-
-  const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
+  const [selectedItemId, setSelectedItemId] = useState<string | null>(null); 
 
   const shippingFee = 200;
   const tax = 100;
