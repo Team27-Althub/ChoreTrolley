@@ -4,21 +4,10 @@ import LoggedInNavbar from '../components/Major/LoggedInNavbar'
 import { Button } from '@/components/ui/button'
 import { Filter, X } from 'lucide-react' // Import the 'X' icon for closing
 import ServiceFilter from './ServiceFilter'
+import { data } from './serviceData'
+import Link from 'next/link'
 
 const ServicePage = () => {
-  const image3 = 'https://www.daibau.ng/showfile.php?uuid=b4358791a81603a00d5f42e70f8add69d52192e1'
-  const image2 = 'https://images.ctfassets.net/ajjw8wywicb3/7FmJC0yRrvfmxEkg0FAujA/2fc0d9df8fb6bbdc82a4ac1067a5d760/HOW_TO_WASH_CLOTHES_The_art_of_washing_different_fabric_370x320.jpg?fm=png'
-  const image5 = 'https://de-cleaners.com/wp-content/uploads/2025/03/clean-1.jpg'
-
-  const data = [
-    {id:1 , image: image5, Store: 'Expert Home Cleaning', category: 'Home Cleaning', price: '200', description:'Top-rated home cleaning service with eco-friendly products. Deep cleaning, regular maintenance, and move-out cleans.', rating: '5.0', star: '⭐⭐⭐⭐⭐'},
-    {id:2 , image: image3, Store: 'Expert Home Sculptor', category: 'Home Cleaning', price: '200', description:'Top-rated home cleaning service with eco-friendly products. Deep cleaning, regular maintenance, and move-out cleans.', rating: '5.0', star: '⭐⭐⭐⭐⭐'},
-    {id:3 , image: image5, Store: 'Expert Home Cleaning', category: '200', description:'Top-rated home cleaning service with eco-friendly products. Deep cleaning, regular maintenance, and move-out cleans.', rating: '5.0', star: '⭐⭐⭐⭐⭐'},
-    {id:4 , image: image3, Store: 'Expert Home Sculptor', category: 'Home Cleaning', price: '200', description:'Top-rated home cleaning service with eco-friendly products. Deep cleaning, regular maintenance, and move-out cleans.', rating: '5.0', star: '⭐⭐⭐⭐⭐'},
-    {id:5 , image: image5, Store: 'Expert Home Cleaning', category: 'Home Cleaning', price: '200', description:'Top-rated home cleaning service with eco-friendly products. Deep cleaning, regular maintenance, and move-out cleans.', rating: '5.0', star: '⭐⭐⭐⭐⭐'},
-    {id:6 , image: image2, Store: 'Expert Home Wash', category: 'Home Cleaning', price: '200', description:'Top-rated home cleaning service with eco-friendly products. Deep cleaning, regular maintenance, and move-out cleans.', rating: '5.0', star: '⭐⭐⭐⭐⭐'},
-  ]
-
   const [isFilterOpen, setIsFilterOpen] = useState(false)
 
   const toggleFilter = () => {
@@ -55,10 +44,13 @@ const ServicePage = () => {
         <div className=''>
           <h2 className='mb-10 font-bold text-xl hidden md:block'>All services</h2>
           <div className='grid grid-cols-2 lg:grid-cols-3 gap-4 px-5'>
-            {data.map((service, idx) => (
-              <div 
+            {data.map((service) => (
+              <Link 
+               key={service.id}
+               // Use both id and slug in the URL
+              href={`/services/${service.id}-${service.slug}`} 
                 className="bg-white rounded-xl w-full flex flex-col gap-1 shadow-xl"
-                key={idx}
+               
               >
                 <img src={service.image} alt="" className='h-[45%] rounded-t-2xl w-full object-cover' />
                 <div className='px-2 mt-4'>
@@ -71,7 +63,7 @@ const ServicePage = () => {
                   <h3 className='font-semibold md:text-xl text-lg'>${service.price}/hr</h3>
                   <p className='text-[12px] text-gray-500'>{service.description}</p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
