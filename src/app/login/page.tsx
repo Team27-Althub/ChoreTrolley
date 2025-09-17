@@ -59,6 +59,10 @@ const LoginPage = () => {
       const result = await login({ email, password }).unwrap();
       sessionStorage.setItem("accessToken", result.data.accessToken);
       sessionStorage.setItem("refreshToken", result.data.refreshToken);
+      sessionStorage.setItem("firstName", result.data.user.firstName);
+      sessionStorage.setItem("lastName", result.data.user.lastName);
+      sessionStorage.setItem("email", result.data.user.email);
+      sessionStorage.setItem("userId", result.data.user.id);
       route.push("/dashboard");
     } catch (err: any) {
       if (err?.status === 401) {
@@ -81,12 +85,12 @@ const LoginPage = () => {
 
   return (
     <div className="flex justify-center items-center h-screen w-screen bg-[#F5F5F4]">
-      <div className="px-10 py-5 bg-white shadow-[#aaaaaa]  shadow-xl flex items-center rounded-2xl flex-col w-[90%] md:w-[60%] lg:w-[40%]">
+      <div className="px-10 py-5 relative bg-white shadow-[#aaaaaa]  shadow-xl flex items-center rounded-2xl flex-col w-[90%] md:w-[60%] lg:w-[40%]">
         <Image src={logo} alt="Logo" width={50} height={40} className="mb-10" />
         <h2 className="text-2xl font-medium">Welcome Back</h2>
         <h4 className="text font-normal">Login into your account</h4>
         {error.general && (
-          <p className="text-red-500 text-sm mt-4 font-light">
+          <p className="text-red-500  text-sm mt-4 font-light">
             {error.general}
           </p>
         )}
@@ -140,7 +144,7 @@ const LoginPage = () => {
           <Button
             variant={"loginMain"}
             type="submit"
-            className="text-[18px] mt-10 py-5 rounded-md"
+            className={`text-[18px] mt-10 py-5 rounded-md ${isLoading && 'bg-[#013328]'}`}
           >
             {isLoading ? "Signing in" : "Login"}
           </Button>

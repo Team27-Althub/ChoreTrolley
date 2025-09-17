@@ -8,25 +8,31 @@ import Image from 'next/image'
 import GroceriesCategories from '../components/Major/GroceriesCategories'
 import DashboardOrders from '../components/Major/DashboardOrders'
 import DashboardDeal from '../components/Major/DashboardDeal'
+ import { useFetchResourceQuery } from '@/redux/api/crudApi'
 
 // import Router from 'next/navigation'
 import { useRouter } from 'next/navigation'
 
 
 const Dashboard = () => {
+
+  // const {data: serviceData, error, isLoading} = useFetchResourceQuery('/dashboard/services')
+  // const {data: categoryData, error: categoryError, isLoading: categoryLoading} = useFetchResourceQuery('/dashboard/categories')
+  const user = sessionStorage.getItem('firstName')
+
   return (
     <div className='bg-[#F5F5F4] '>
       <LoggedInNavbar/>
-      <div className='px-10 pb-10'>
+      <div className='px-2 md:px-10 pb-10'>
 
         <section className='md:flex justify-between my-10'>
-          <h2 className='text-2xl font-semibold'><span className='text-[#727272] font-normal'>Welcome,</span> Ade</h2>
-          <div className='gap-3 flex  mt-10 md:mt-0'>
-            <Button variant='dashboardDefault'className="md:text-lg text-sm rounded-lg text-black border border-2 border-black hover:bg-[#013328] hover:border-0 hover:text-white  hover:cursor-pointer">
-              Start Shopping Groceries
+          <h2 className='text-2xl font-semibold'><span className='text-[#727272] font-normal'>Welcome,</span> {user}</h2>
+          <div className=' flex md:gap-3 justify-between  mt-10 md:mt-0'>
+            <Button variant='dashboardDefault'className="md:text-lg w-40 text-sm rounded-lg text-black border border-2 border-black hover:bg-[#013328] hover:border-0 hover:text-white  hover:cursor-pointer">
+              Start Shopping
             </Button>
-            <Button variant='dashboardDefault'className="md:text-lg text-sm text-white rounded-lg bg-[#013328] hover:cursor-pointer">
-              Find Household Services
+            <Button variant='dashboardDefault'className="md:text-lg w-40 text-sm text-white rounded-lg bg-[#013328] hover:cursor-pointer">
+              Find Services
             </Button>
           </div>
         </section>

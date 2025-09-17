@@ -17,27 +17,27 @@ const GroceriesCategories = () => {
                 <div className='my-5 px-7 gap-5 grid grid-cols-2 md:grid-cols-3'>
                   <div className='p-2 h-36 rounded-md  flex  shadow-lg justify-between border-[1px]'>
                     <h2 className='text-xl self-start font-medium'>Fresh <br/> Produce</h2>
-                    <Image src={lemon} alt="" className='h-15 self-end '/>
+                    <Image src={lemon} alt="" className='h-10 md:h-15  self-end '/>
                   </div>
                   <div className='p-2 h-36 rounded-md  flex  shadow-lg justify-between border-[1px]'>
                     <h2 className='text-xl self-start font-medium'>Pantary <br/> Staples</h2>
-                    <Image src={bowl} alt="" className='h-15 self-end '/>
+                    <Image src={bowl} alt="" className='h-10 md:h-15  self-end '/>
                   </div>
                   <div className='p-2 h-36 rounded-md  flex  shadow-lg justify-between border-[1px]'>
                     <h2 className='text-xl self-start font-medium'>Fozen <br/> Foods</h2>
-                    <Image src={juice} alt="" className='h-15 self-end '/>
+                    <Image src={juice} alt="" className='h-10 md:h-15  self-end '/>
                   </div>
                   <div className='p-2 h-36 rounded-md  flex  shadow-lg justify-between border-[1px]'>
                     <h2 className='text-xl self-start font-medium'>Dairy & <br/> Eggs</h2>
-                    <Image src={milk} alt="" className='h-15 self-end '/>
+                    <Image src={milk} alt="" className='h-10 md:h-15  self-end '/>
                   </div>
                   <div className='p-2 h-36 rounded-md  flex  shadow-lg justify-between border-[1px]'>
                     <h2 className='text-xl self-start font-medium'>Meat &<br/> SeaFoods</h2>
-                    <Image src={meat} alt="" className='h-15 self-end '/>
+                    <Image src={meat} alt="" className='h-10 md:h-15  self-end '/>
                   </div>
                   <div className='p-2 h-36 rounded-md  flex  shadow-lg justify-between border-[1px]'>
                     <h2 className='text-xl self-start font-medium'>Baked <br/> Goods</h2>
-                    <Image src={cake} alt="" className='h-15 self-end '/>
+                    <Image src={cake} alt="" className='h-10 md:h-15  self-end '/>
                   </div>
                 </div>
               </div>
