@@ -68,7 +68,7 @@ const LoginPage = () => {
       if (err?.status === 401) {
         setResponseError("Invalid Login Credentials!"); //Unauthorized email/password
         setLoginErrModal(true);
-      } else if (err?.status === "FETCH_ERROR") {
+      } else if (!navigator.onLine) {
         setResponseError(
           "Network error: Please check your internet connection" //Internet error/Timeout
         );

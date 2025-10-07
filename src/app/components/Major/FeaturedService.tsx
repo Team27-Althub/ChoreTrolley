@@ -8,6 +8,16 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel"
 
+interface item {
+  id: string,
+  imageUrl: string,
+  title: string,
+  serviceProvider: {
+    rating: number,
+  }
+}
+
+
 const FeaturedService = () => {
   const { data: serviceData, error, isLoading } = useFetchResourceQuery('/dashboard/services')
   const stuff = sessionStorage.getItem('accessToken')
@@ -66,7 +76,7 @@ const FeaturedService = () => {
 
       <Carousel opts={{ align: "start", loop: true }} className="w-full px-5">
         <CarouselContent className="-ml-4">
-          {serviceData?.data?.map((item) => (
+          {serviceData?.data?.map((item: item) => (
             <CarouselItem
               key={item.id}
               className="pl-4 shrink-0 min-w-0 basis-1/2 sm:basis-1/3 md:basis-1/4"

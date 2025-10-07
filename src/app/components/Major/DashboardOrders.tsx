@@ -1,7 +1,11 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
+import { useFetchResourceQuery } from '@/redux/api/crudApi'
 
 const DashboardOrders = () => {
+
+  const {data, isLoading, isError} = useFetchResourceQuery('/order')
+
   return (
                 <div className='bg-white rounded-md py-3 mb-5 shadow-xl'>
                     <div className='flex justify-between px-4 py-3'>

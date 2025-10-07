@@ -84,7 +84,7 @@ const GroceriesPage = () => {
               // Show 6 skeletons
               Array.from({ length: 6 }).map((_, i) => <GroceryCardSkeleton key={i} />)
             ) : (
-               groceryData?.data?.map((service) => {
+               groceryData?.data?.map((service: any) => {
               const addingItems = () => {
                 addItem(service)
                 setDisplay1('block')
