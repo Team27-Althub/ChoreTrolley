@@ -18,14 +18,14 @@ const LoginErrorModal: React.FC<LoginErrorModalProps> = ({
   return (
     <>
       <div
-        className="  h-screen w-screen fixed inset-0 top-0 left-0 bg-[#00000080] flex justify-center items-center z-50"
+        className=" absolute bottom-5 right-2"
         onClick={onClose}
       >
         <div
-          className="bg-white h-[350px] max-w-full w-[600px] flex items-center justify-center rounded-xl p-4"
+          className=" flex items-center justify-center  rounded-xl p-4"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className=" w-[80%] h-15 bg-[#E53935]  rounded-[10px] flex justify-evenly items-center">
+          <div className=" w-[80%] px-3  h-15 bg-[#E53935]  rounded-[10px] flex justify-evenly items-center">
             <Image src={WarningIcon} alt="WarningIcon" className="w-8 h-8 " />
             <p className="w-[60%] text-white text-center mt-2 text-sm wrap-break-word">
               {message || "Sorry, something went wrong and we could not process your request. Please try again."}

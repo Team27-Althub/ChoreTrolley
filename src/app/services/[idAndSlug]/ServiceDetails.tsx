@@ -6,12 +6,14 @@ type ServiceDetailsProps = {
   Details: {
     id: number;
     slug: string;
-    Store: string;
-    category: string;
+    title: string;
+    category: {
+      name: string
+    };
     price?: string;
     rating: string;
     description: string;
-    image: string;
+    imageUrl: string;
   };
 };
 const ServiceDetails: React.FC<ServiceDetailsProps> = ({ Details }) => {
@@ -31,15 +33,15 @@ const ServiceDetails: React.FC<ServiceDetailsProps> = ({ Details }) => {
           {/* image */}
           <div className="w-27 h-27 rounded-full overflow-hidden">
             <img
-              src={Details.image}
-              alt={Details.Store}
+              src={Details.imageUrl}
+              alt={Details.title}
               className="w-full h-full object-cover"
             />
           </div>
-          {/* Store name/ category/ rating */}
+          {/* title name/ category/ rating */}
           <div className="flex flex-col items-center justify-center mt-1 space-y-1">
-            <h1 className="text-3xl font-bold mt-4">{Details.Store}</h1>
-            <p className="text-gray-500 text-lg">{Details.category}</p>
+            <h1 className="text-3xl font-bold mt-4">{Details.title}</h1>
+            <p className="text-gray-500 text-lg">{Details.category.name}</p>
             <div className="flex items-center gap-3 mt-2 ">
               <div className="flex space-x-1 text-yellow-500">
                 {Array.from({ length: 5 }).map((_, idx) => (

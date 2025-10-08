@@ -24,7 +24,7 @@ export default function Home() {
       <Navbar/>
       <Hero/>
       
-      <div className="bg-[#fff] py-10 px-20"id="howItWorks">
+      <div className="bg-[#fff] py-10 px-5 md:px-20"id="howItWorks">
         <h2 className="text-center text-xl font-bold ">How ChoreTrolly Works</h2>
         <p className="text-center text-sm text-[#8a8989] mt-2">Experience the ultimate convenience in three simple steps.</p>
         <div className="grid md:grid-cols-3 grid-cols-1 mt-10 gap-5">

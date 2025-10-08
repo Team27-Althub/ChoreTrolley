@@ -1,7 +1,17 @@
-// YourDetails.tsx
+'use client'
 import React from 'react';
+import { ProviderResponse } from '../components/Major/profileType';
 
-const YourDetails: React.FC = () => {
+
+
+interface Props {
+  profile: ProviderResponse
+}
+
+const YourDetails: React.FC<Props> = ({profile}) => {
+
+  // const  profileInfo = profile?.data
+  console.log(profile?.data?.user?.email)
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm">
       <h2 className="text-xl font-semibold text-gray-900 mb-1">Your Details</h2>
@@ -14,7 +24,8 @@ const YourDetails: React.FC = () => {
         <input
           type="email"
           id="email"
-          placeholder="Enter your email"
+          disabled
+          value={profile?.data?.user?.email}
           className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
         />
         <p className="mt-2 text-sm text-gray-500">

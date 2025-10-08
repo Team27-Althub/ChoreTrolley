@@ -1,15 +1,34 @@
-// ShippingMethod.tsx
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const ShippingMethod: React.FC = () => {
-  const [selectedShipping, setSelectedShipping] = useState<string>('Standard'); // Set a default selection
+interface ShippingOption {
+  id: string;
+  name: string;
+  price: number;
+}
 
-  const shippingOptions = [
+interface ShippingMethodProps {
+  onSelect: (method: string, price: number) => void;
+}
+
+const ShippingMethod: React.FC<ShippingMethodProps> = ({ onSelect }) => {
+  const [selectedShipping, setSelectedShipping] = useState<string>('Standard');
+
+  const shippingOptions: ShippingOption[] = [
     { id: 'economy', name: 'Economy', price: 1000 },
     { id: 'standard', name: 'Standard', price: 2500 },
     { id: 'express', name: 'Express', price: 5000 },
   ];
+
+  // Notify parent anytime the user selects a new option
+  useEffect(() => {
+    const selectedOption = shippingOptions.find(
+      (option) => option.name === selectedShipping
+    );
+    if (selectedOption) {
+      onSelect(selectedOption.name, selectedOption.price);
+    }
+  }, [selectedShipping]);
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm">
@@ -36,11 +55,16 @@ const ShippingMethod: React.FC = () => {
                 onChange={() => setSelectedShipping(option.name)}
                 className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
               />
-              <label htmlFor={option.id} className="ml-3 block text-base font-medium text-gray-700">
+              <label
+                htmlFor={option.id}
+                className="ml-3 block text-base font-medium text-gray-700"
+              >
                 {option.name}
               </label>
             </div>
-            <span className="text-lg font-semibold text-gray-900">₦{option.price.toLocaleString()}</span>
+            <span className="text-lg font-semibold text-gray-900">
+              ₦{option.price.toLocaleString()}
+            </span>
           </div>
         ))}
       </div>

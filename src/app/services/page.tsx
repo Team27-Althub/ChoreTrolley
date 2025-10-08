@@ -4,34 +4,39 @@ import LoggedInNavbar from '../components/Major/LoggedInNavbar'
 import { Button } from '@/components/ui/button'
 import { Filter, X } from 'lucide-react' // Import the 'X' icon for closing
 import ServiceFilter from './ServiceFilter'
-import { data } from './serviceData'
-import Link from 'next/link'
+  import { useFetchResourceQuery } from '@/redux/api/crudApi'
+  import RenderStars from './Stars'
+  import GroceryCardSkeleton from '../components/Major/Skeleton'
+  import Link from 'next/link'
 
 const ServicePage = () => {
-  const [isFilterOpen, setIsFilterOpen] = useState(false)
+    const {data: serviceData, error, isLoading} = useFetchResourceQuery('/services')
+    const {data: serviceCategory, error:category, isLoading:loading} = useFetchResourceQuery('/services/categories')
 
-  const toggleFilter = () => {
-    setIsFilterOpen(!isFilterOpen)
-  }
+    const [isFilterOpen, setIsFilterOpen] = useState(false)
 
-  return (
-    <div className='bg-[#F5F5F4] rounded-lg relative overflow-x-hidden'>
-      <LoggedInNavbar/>
-      
-      {/* Mobile Filter Button */}
-      <div className='flex items-center justify-between p-4 md:hidden'>
-        <h2 className='font-bold text-xl'>All services</h2>
-        <Button 
-          variant='secondary' 
-          className='flex items-center text-black border-black border gap-2'
-          onClick={toggleFilter}
-          aria-expanded={isFilterOpen}
-          aria-controls='mobile-filter-sidebar'
-        >
-          <Filter size={16} />
-          Filters
-        </Button>
-      </div>
+    const toggleFilter = () => {
+      setIsFilterOpen(!isFilterOpen)
+    }
+
+    return (
+      <div className='bg-[#F5F5F4] rounded-lg relative overflow-x-hidden'>
+        <LoggedInNavbar/>
+        
+        {/* Mobile Filter Button */}
+        <div className='flex items-center justify-between p-4 md:hidden'>
+          <h2 className='font-bold text-xl'>All services</h2>
+          <Button 
+            variant='secondary' 
+            className='flex items-center text-black border-black border gap-2'
+            onClick={toggleFilter}
+            aria-expanded={isFilterOpen}
+            aria-controls='mobile-filter-sidebar'
+          >
+            <Filter size={16} />
+            Filters
+          </Button>
+        </div>
 
       {/* Main Content Grid */}
       <div className='grid grid-cols-1 md:grid-cols-[30%_70%] gap-4 my-5 mx-3 md:mx-10 lg:mx-20'>
@@ -44,27 +49,33 @@ const ServicePage = () => {
         <div className=''>
           <h2 className='mb-10 font-bold text-xl hidden md:block'>All services</h2>
           <div className='grid grid-cols-2 lg:grid-cols-3 gap-4 px-5'>
-            {data.map((service) => (
-              <Link 
+            {
+               isLoading || error ? (
+
+                Array.from({ length: 6 }).map((_, i) => <GroceryCardSkeleton key={i} />)
+                ) : (
+              serviceData?.data?.map((service) => (
+                <Link 
                key={service.id}
                // Use both id and slug in the URL
-              href={`/services/${service.id}-${service.slug}`} 
+              href={`/services/${service.id}-${service.title}`} 
                 className="bg-white rounded-xl w-full flex flex-col gap-1 shadow-xl"
                
               >
-                <img src={service.image} alt="" className='h-[45%] rounded-t-2xl w-full object-cover' />
-                <div className='px-2 mt-4'>
-                  <h2 className='md:text-xl font-semibold text-lg  text-left'>{service.Store}</h2>
-                  <p className='text-sm text-gray-500'>{service.category}</p>
-                  <div className='flex gap-3'>
-                    <p className='text-sm'>{service.star}</p>
-                    <p className='text-sm'>{service.rating}</p>
+                  <img src={service.imageUrl} alt="" className='h-[45%] rounded-t-2xl w-full object-cover' />
+                  <div className='px-2 mt-4'>
+                    <h2 className='md:text-xl font-semibold text-lg  text-left'>{service.title}</h2>
+                    <p className='text-sm text-gray-500'>{service.category.name}</p>
+                    <div className='flex gap-3'>
+                      <RenderStars count={service?.serviceProvider?.rating}/>
+                      <p className='text-sm'>{service?.serviceProvider?.rating}.0</p> 
+                    </div>
+                    <h3 className='font-semibold md:text-xl text-lg'>₦{service.price}/hr</h3>
+                  <p className='text-[12px] hidden md:block text-gray-500'>{service.description.slice(0,150)}..</p>
+                  <p className='text-[12px] block md:hidden text-gray-500'>{service.description.slice(0,90)}....</p>
                   </div>
-                  <h3 className='font-semibold md:text-xl text-lg'>${service.price}/hr</h3>
-                  <p className='text-[12px] text-gray-500'>{service.description}</p>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              )))}
           </div>
         </div>
       </div>
@@ -97,4 +108,4 @@ const ServicePage = () => {
   )
 }
 
-export default ServicePage
+  export default ServicePage

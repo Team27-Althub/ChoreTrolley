@@ -1,8 +1,18 @@
 // DeliveryInformation.tsx
-import React from 'react';
-import { MapPinIcon } from 'lucide-react'; // Example icon, you might need to install @heroicons/react
+import React, {useState} from 'react';
+import { MapPinIcon } from 'lucide-react'
+import { ProviderResponse } from '../components/Major/profileType';
+import nigeriaCities from '../profile/cityData';
 
-const DeliveryInformation: React.FC = () => {
+
+interface Props {
+  profile: ProviderResponse
+}
+
+const DeliveryInformation: React.FC<Props> = ({profile}) => {
+
+  const [selectedCity, setSelectedCity] = useState('')
+
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm">
       <h2 className="text-xl font-semibold text-gray-900 mb-1">Delivery Information</h2>
@@ -16,7 +26,7 @@ const DeliveryInformation: React.FC = () => {
           <input
             type="text"
             id="firstName"
-            defaultValue="Ade"
+            defaultValue={profile?.data?.firstName}
             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
@@ -27,7 +37,7 @@ const DeliveryInformation: React.FC = () => {
           <input
             type="text"
             id="lastName"
-            defaultValue="Olu"
+            defaultValue={profile?.data?.lastName}
             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
@@ -41,7 +51,7 @@ const DeliveryInformation: React.FC = () => {
           <input
             type="text"
             id="address"
-            defaultValue="123 Shodeinde Close VI, Lagos"
+            defaultValue={profile?.data?.address}
             className="mt-1 block w-full pl-4 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
           <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -57,11 +67,15 @@ const DeliveryInformation: React.FC = () => {
           </label>
           <select
             id="state"
-            defaultValue="Lagos"
+            value={profile?.data?.state}
+            disabled
             className="mt-1 block w-full pl-4 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           >
-            <option>Lagos</option>
-            {/* Add more states as needed */}
+            {nigeriaCities.map((data, idx) => (
+              <option key={idx} value={data.state}>
+                {data.state}
+              </option>
+            ))}
           </select>
         </div>
         <div>
@@ -70,10 +84,12 @@ const DeliveryInformation: React.FC = () => {
           </label>
           <select
             id="city"
-            defaultValue="Lagos"
+            disabled
+            defaultValue={profile?.data?.city}
             className="mt-1 block w-full pl-4 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           >
-            <option>Lagos</option>
+           
+            <option value={profile?.data?.city}>{profile?.data?.city}</option>
             {/* Add more cities as needed */}
           </select>
         </div>
@@ -81,11 +97,12 @@ const DeliveryInformation: React.FC = () => {
 
       <div className="mb-6">
         <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-          Phone (Optional)
+          Phone
         </label>
         <input
           type="tel"
           id="phone"
+          value={profile?.data?.phone}
           placeholder="Enter phone number"
           className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
         />

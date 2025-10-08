@@ -5,10 +5,16 @@ import { useCart } from "react-use-cart";
 import { Button } from "@/components/ui/button";
 import FailedOrder from "./FailedOrderModal";
 import { useRouter } from "next/navigation";
+import { PaystackButton } from 'react-paystack'
+import { useCreateOrderMutation } from "@/redux/api/paymentApi";
+import CheckoutButton from "./CheckoutButton";
 
 const OrderSummary: React.FC = () => {
   const router = useRouter();
   const [orderFailed, setOrderFailed] = useState(false);
+  const [createOrder, {isLoading}] = useCreateOrderMutation()
+
+  const userEmail = sessionStorage.getItem('email')
 
   const placeOrder = async () => {
     // Remove success, replace with Api
@@ -23,6 +29,10 @@ const OrderSummary: React.FC = () => {
       setOrderFailed(true); //Show Modal
     }
   };
+
+
+
+  
   const {
     // isEmpty,
     // totalUniqueItems,
@@ -117,20 +127,28 @@ const OrderSummary: React.FC = () => {
             </Link> */}
         <Button
           variant="dashboardDefault"
-          onClick={placeOrder}
+          // onClick={placeOrder}
           className="text-lg w-full mt-10 text-white rounded-md bg-[#013328] hover:cursor-pointer "
         >
-          Proceed to Payment
+        <PaystackButton 
+          amount={(cartTotal + 200 + 100) * 100} 
+          publicKey='pk_test_c9758f98669a177bdcc77e46c14f568cc2358cc4' 
+          email={userEmail ?? ''} 
+          text="Proceed to payment" 
+          className='hover:cursor-pointer'
+          onSuccess={placeOrder}
+          />
         </Button>
+        <CheckoutButton/>
       </div>
       {/* Failed Order Modal */}
-      <FailedOrder
+      {/* <FailedOrder
         open={orderFailed}
         message="Something went wrong, please try again.... or contact support"
         redirectPath="/" //Redirect to home
         buttonLabel="Try again"
         onClose={() => setOrderFailed(false)}
-      />
+      /> */}
     </div>
   );
 };

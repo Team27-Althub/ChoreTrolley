@@ -6,11 +6,15 @@ import { Filter, X } from 'lucide-react'
 import GroceryFilter from './GroceriesFilter'
 import { useCart } from 'react-use-cart'
 import ResponseModal from '../components/Minor/ResponseModal'
+ import { useFetchResourceQuery } from '@/redux/api/crudApi'
+ import RenderStars from '../services/Stars'
+ import GroceryCardSkeleton from '../components/Major/Skeleton'
 
 const GroceriesPage = () => {
   const [display1, setDisplay1] = useState('hidden')
   const [isFilterOpen, setIsFilterOpen] = useState(false)
   const { addItem, updateItemQuantity, items } = useCart()
+  const {data: groceryData, isLoading:groceriesLoading, error:groceriesError} = useFetchResourceQuery('/groceries')
 
   // Prevent body scrolling when the filter sidebar is open
   useEffect(() => {
@@ -74,8 +78,13 @@ const GroceriesPage = () => {
         {/* Groceries List */}
         <div className=''>
           <h2 className='mb-10 font-bold text-xl hidden md:block'>All Groceries</h2>
-          <div className='grid grid-cols-2 lg:grid-cols-3 gap-4 px-5'>
-            {data.map((service) => {
+          <div className='grid grid-cols-2 lg:grid-cols-3 gap-4 md:px-5'>
+            {
+            groceriesLoading || groceriesError ? (
+              // Show 6 skeletons
+              Array.from({ length: 6 }).map((_, i) => <GroceryCardSkeleton key={i} />)
+            ) : (
+               groceryData?.data?.map((service: any) => {
               const addingItems = () => {
                 addItem(service)
                 setDisplay1('block')
@@ -92,17 +101,18 @@ const GroceriesPage = () => {
                   className="bg-[#fff] rounded-xl w-full h-80 flex flex-col gap-1 shadow-xl" 
                   key={service.id}
                 >
-                  <img src={service.image} alt={service.name} className='h-[45%] rounded-t-2xl object-cover' />
+                  <img src={service.imageUrl} alt={service.name} className='h-[45%] rounded-t-2xl object-cover' />
                   <div className='px-2 mt-4'>
                     <h2 className='text-xl font-normal text-left'>{service.name}</h2>
-                    <p className='text-sm text-gray-500'>{service.category}</p>
+                    <p className='text-sm text-gray-500'>{service.groceryType}</p>
                     <div className='flex gap-3'>
-                      <p className='text-sm'>{service.star}</p>
+                      {/* // <p className='text-sm'>{service.star}</p> */}
+                      <RenderStars count={service?.serviceProvider?.rating}/>
                       <p className='text-sm'>{service.rating}</p>
                     </div>
                     <h3 className='font-semibold text-xl mt-2'>${service.price}</h3>
                     
-                    {/* The logic here is corrected */}
+                    
                     <Button 
                       onClick={addingItems}
                       variant='dashboardDefault'
@@ -110,7 +120,7 @@ const GroceriesPage = () => {
                       Add to cart
                     </Button>
 
-                    {/* The logic here is also corrected */}
+                    
                     <div className={`grid grid-cols-3 gap-2 ${quantity === 0 ? 'hidden' : ''}`}>
                       <Button 
                         onClick={() => {
@@ -137,7 +147,7 @@ const GroceriesPage = () => {
                   </div>
                 </div>
               )
-            })}
+            }))}
           </div>
         </div>
       </div>

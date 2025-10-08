@@ -11,6 +11,7 @@ const LoggedInNavbar = () => {
   const { totalUniqueItems } = useCart()
   const pathname = usePathname()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const user = sessionStorage.getItem('firstName')
 
   // Helper function to determine if a link is active
   const isActive = (href:string) => pathname === href
@@ -70,7 +71,7 @@ const LoggedInNavbar = () => {
         {/* User Avatar */}
         <Link href={'/profile'}>
           <div className="w-10 h-10 rounded-full border border-gray-400 flex items-center justify-center text-gray-500 text-lg">
-            A
+            {user?.slice(0,1)}
           </div>
         </Link>
         
