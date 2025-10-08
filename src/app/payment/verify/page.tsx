@@ -42,7 +42,7 @@ const PaymentSuccessPage = () => {
                 </>
               ) : error ? (
                 <>
-                  <Image src={image} alt="failed" />
+                  <Image src='https://jumeirahroyal.com/wp-content/uploads/d7e50cb89c.png' alt="failed" />
                   <h2 className="lg:text-3xl text-2xl font-semibold my-5 text-red-600">
                     Payment Verification Failed
                   </h2>
