@@ -54,7 +54,7 @@ const ServicePage = () => {
 
                 Array.from({ length: 6 }).map((_, i) => <GroceryCardSkeleton key={i} />)
                 ) : (
-              serviceData?.data?.map((service) => (
+              serviceData?.data?.map((service:any) => (
                 <Link 
                key={service.id}
                // Use both id and slug in the URL
