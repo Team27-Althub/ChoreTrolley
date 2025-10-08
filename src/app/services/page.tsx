@@ -58,7 +58,7 @@ const ServicePage = () => {
                 <Link 
                key={service.id}
                // Use both id and slug in the URL
-              href={`/services/${service.id}-${service.slug}`} 
+              href={`/services/${service.id}-${service.title}`} 
                 className="bg-white rounded-xl w-full flex flex-col gap-1 shadow-xl"
                
               >
