@@ -7,7 +7,7 @@ import { useCart } from 'react-use-cart';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import LoggedInNavbar from '../../components/Major/LoggedInNavbar';
-import image from '../../../public/Group 77.png';
+// import image from '../../../public/Group 77.png';
 import { useVerifyOrderQuery } from '@/redux/api/orderApi'; // 👈 Import your RTK Query hook
 
 const PaymentSuccessPage = () => {
@@ -50,7 +50,7 @@ const PaymentSuccessPage = () => {
                 </>
               ) : (
                 <>
-                  <Image src={image} alt="success" />
+                  <Image src="/Group 77.png"  alt="success" />
                   <h2 className="lg:text-4xl text-2xl font-semibold my-5 text-green-700">
                     Order Placed Successfully
                   </h2>
