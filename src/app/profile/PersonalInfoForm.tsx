@@ -7,6 +7,9 @@ import RenderStars from "../services/Stars";
 
 const PersonalInfoForm = () => {
 
+  const firstName = sessionStorage.getItem("firstName") || "";
+  const lastName = sessionStorage.getItem("lastName") || "";
+
 
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
@@ -18,8 +21,8 @@ const PersonalInfoForm = () => {
   // Initialize with session storage values
   const [first, setFirst] = useState('');
   const [last, setLast] = useState('');
-  const [address, setAddress] = useState("123 Shodeinde Close VI, Lagos");
-  const [phone, setPhone] = useState("0813468972");
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
 
   // Mutations
   const [post, { isLoading, isError, isSuccess }] = useCreateResourceMutation();
@@ -78,16 +81,24 @@ const PersonalInfoForm = () => {
     <div className="bg-white max-w-3xl mx-auto p-8 rounded-lg shadow-md">
       {/* Profile Header */}
       <div className="flex items-center gap-4 mb-8">
-          <img
-            src={profileData?.data.profileImageUrl}
+          {/* <img
+            src={
+              profilePreview || 
+              (profileData?.data?.profileImageUrl 
+                ? profileData.data.profileImageUrl.startsWith('http')
+                  ? profileData.data.profileImageUrl
+                  : `https://choretrolley-apiservice-production.up.railway.app${profileData.data.profileImageUrl}`
+                : 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.svgrepo.com%2Fsvg%2F452030%2Favatar-default&psig=AOvVaw19BEa5phztgIdU-Jsnu0ts&ust=1760052680584000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLjSu6nhlZADFQAAAAAdAAAAABAJ')
+                
+            }
             alt="Profile"
             className="w-16 h-16 rounded-full object-cover cursor-pointer"
             onClick={() => setIsModalOpen(true)}
-          />
+          /> */}
 
         <div>
           <h2 className="text-xl font-semibold">
-            {profileData?.data?.firstName} {profileData?.data?.lastName}
+            {profileData?.data?.firstName || firstName} {profileData?.data?.lastName || lastName}
           </h2>
           <div className="flex items-center gap-1 text-sm mt-1">
             <RenderStars count={profileData?.data?.rating}/>
@@ -104,7 +115,7 @@ const PersonalInfoForm = () => {
             <label className="block font-semibold mb-1">First Name</label>
             <input
               type="text"
-              value={first}
+              value={first }
               onChange={(e) => {
                 setHasChanges(true);
                 setFirst(e.target.value);

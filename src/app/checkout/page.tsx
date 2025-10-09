@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import ContractType from './ContractType'
 import DeliveryInformation from './DeliveryInformation'
 import Payment from './Payment'
@@ -16,13 +16,18 @@ import { useFetchResourceQuery } from "@/redux/api/crudApi";
 const CheckoutPage = () => {
 
   const { data: profileData, error: profileError, isLoading: profileLoading } = useFetchResourceQuery('/profile')
+  const [shippingMethod, setShippingMethod] = useState<string>()
+  const [shippingAmount, setShippingAmount] = useState<number>()
 
     const handleShippingSelect = (method: string, price: number) => {
     console.log("Selected shipping:", method, price);
-    // You can dispatch to Redux here if needed
+    setShippingAmount(price)
+    setShippingMethod(method)
   };
 
   return (
+
+
     <div className="bg-[#F5F5F4] ">
         <LoggedInNavbar/>
         <Link href={'/cart'} className='flex px-10 text-xl items-center mt-5'>
@@ -38,7 +43,7 @@ const CheckoutPage = () => {
                 {/* <Payment/> */}
             </div>
             <div>
-                <OrderSummary/>
+                <OrderSummary shipping={shippingAmount} method={shippingMethod}/>
                 {/* lol */}
             </div>
         </div>
