@@ -1,316 +1,112 @@
 'use client'
-import React, { useState } from 'react';
-import { ChevronDown, Search, X } from 'lucide-react';
+import React from 'react'
 
-interface ExpandedSections {
-  category: boolean;
-  rating: boolean;
-  priceRange: boolean;
-  groceryType: boolean;
-}
-
-interface Rating {
-  value: string;
-  label: string;
-  stars: number;
-}
-
-const GroceryFilter: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedRating, setSelectedRating] = useState<string>('');
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
-  const [selectedGroceryTypes, setSelectedGroceryTypes] = useState<string[]>([]);
-  const [expandedSections, setExpandedSections] = useState<ExpandedSections>({
-    category: true,
-    rating: true,
-    priceRange: true,
-    groceryType: true
-  });
-
-  const categories: string[] = [
-    'Fresh Produce',
-    'Pantry Staples',
-    'Dairy & Eggs',
-    'Frozen Foods',
-    'Meat & Seafood',
-    'Baked Goods',
-    'Vegetables'
-  ];
-
-  const ratings: Rating[] = [
-    { value: '5.0', label: '5.0', stars: 5 },
-    { value: '4.0', label: '4.0 & up', stars: 4 },
-    { value: '3.0', label: '3.0 & up', stars: 3 },
-    { value: '2.0', label: '2.0 & up', stars: 2 },
-    { value: '1.0', label: '1.0 & up', stars: 1 }
-  ];
-
-  const groceryTypes: string[] = [
-    'Organic',
-    'Non-organic',
-    'GMO'
-  ];
-
-  const handleCategoryChange = (category: string): void => {
-    setSelectedCategories(prev => 
-      prev.includes(category) 
-        ? prev.filter(c => c !== category)
-        : [...prev, category]
-    );
-  };
-
-  const handleGroceryTypeChange = (groceryType: string): void => {
-    setSelectedGroceryTypes(prev => 
-      prev.includes(groceryType) 
-        ? prev.filter(g => g !== groceryType)
-        : [...prev, groceryType]
-    );
-  };
-
-  const toggleSection = (section: keyof ExpandedSections): void => {
-    setExpandedSections(prev => ({
+const GroceryFilter = ({ filters, setFilters }:any) => {
+  const handleCategoryChange = (category:any) => {
+    setFilters((prev:any) => ({
       ...prev,
-      [section]: !prev[section]
-    }));
-  };
+      category,
+    }))
+  }
 
-  const clearAllFilters = (): void => {
-    setSearchQuery('');
-    setSelectedCategories([]);
-    setSelectedRating('');
-    setPriceRange([0, 1000]);
-    setSelectedGroceryTypes([]);
-  };
-
-  const renderStars = (count: number, rating: string): React.ReactNode[] => {
-    return Array.from({ length: 5 }, (_, i) => (
-      <span
-        key={i}
-        className={`text-sm ${
-          i < count ? 'text-yellow-400' : 'text-gray-300'
-        }`}
-      >
-        ★
-      </span>
-    ));
-  };
+  const handleRatingChange = (rating:any) => {
+    setFilters((prev:any) => ({
+      ...prev,
+      rating,
+    }))
+  }
 
   return (
-    <div className=" bg-white p-6  rounded-lg ">
-      {/* Header */}
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
-        <button 
-          onClick={clearAllFilters}
-          className="text-sm text-gray-500 hover:text-gray-700 underline"
-        >
-          Clear all
-        </button>
-      </div>
-
+    <div className="p-4 space-y-6">
       {/* Search */}
-      <div className="relative mb-6">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+      <div>
+        <h2 className="font-bold mb-2 text-lg">Search</h2>
         <input
           type="text"
-          placeholder="Search for groceries"
-          value={searchQuery}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
-          className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+          value={filters.search}
+          onChange={(e) =>
+            setFilters((prev:any) => ({ ...prev, search: e.target.value }))
+          }
+          placeholder="Search groceries..."
+          className="w-full border rounded-md px-3 py-2 outline-none focus:ring-2 focus:ring-[#013328]"
         />
       </div>
 
-      {/* Category */}
-      <div className="mb-6">
-        <button
-          onClick={() => toggleSection('category')}
-          className="flex justify-between items-center w-full mb-3"
-        >
-          <h3 className="text-base font-medium text-gray-900">Category</h3>
-          <ChevronDown 
-            className={`w-4 h-4 text-gray-500 transform transition-transform ${
-              expandedSections.category ? 'rotate-180' : ''
-            }`}
-          />
-        </button>
-        
-        {expandedSections.category && (
-          <div className="space-y-3">
-            {categories.map((category) => (
-              <label key={category} className="flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={selectedCategories.includes(category)}
-                  onChange={() => handleCategoryChange(category)}
-                  className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                />
-                <span className="ml-3 text-sm text-gray-700">{category}</span>
-              </label>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Rating */}
-      <div className="mb-6">
-        <button
-          onClick={() => toggleSection('rating')}
-          className="flex justify-between items-center w-full mb-3"
-        >
-          <h3 className="text-base font-medium text-gray-900">Rating</h3>
-          <ChevronDown 
-            className={`w-4 h-4 text-gray-500 transform transition-transform ${
-              expandedSections.rating ? 'rotate-180' : ''
-            }`}
-          />
-        </button>
-        
-        {expandedSections.rating && (
-          <div className="space-y-3">
-            {ratings.map((rating) => (
-              <label key={rating.value} className="flex items-center cursor-pointer">
+      {/* Category Filter */}
+      <div>
+        <h2 className="font-bold mb-2 text-lg">Category</h2>
+        <div className="space-y-2">
+          {["All", "Fruits", "Vegetables", "Snacks", "Drinks", "Meat"].map(
+            (type) => (
+              <label key={type} className="block cursor-pointer">
                 <input
                   type="radio"
-                  name="rating"
-                  value={rating.value}
-                  checked={selectedRating === rating.value}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSelectedRating(e.target.value)}
-                  className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                  name="category"
+                  value={type}
+                  checked={filters.category === type}
+                  onChange={() => handleCategoryChange(type)}
+                  className="mr-2 accent-[#013328]"
                 />
-                <div className="ml-3 flex items-center gap-2">
-                  <div className="flex">
-                    {renderStars(rating.stars, rating.value)}
-                  </div>
-                  <span className="text-sm text-gray-700">{rating.label}</span>
-                </div>
+                {type}
               </label>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Price Range */}
-      <div className="mb-6">
-        <button
-          onClick={() => toggleSection('priceRange')}
-          className="flex justify-between items-center w-full mb-3"
-        >
-          <h3 className="text-base font-medium text-gray-900">Price Range</h3>
-          <ChevronDown 
-            className={`w-4 h-4 text-gray-500 transform transition-transform ${
-              expandedSections.priceRange ? 'rotate-180' : ''
-            }`}
-          />
-        </button>
-        
-        {expandedSections.priceRange && (
-          <div className="space-y-4">
-            <div className="relative">
-              <input
-                type="range"
-                min="0"
-                max="1000"
-                value={priceRange[1]}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
-                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
-              />
-              <div 
-                className="absolute top-0 h-2 bg-green-600 rounded-lg pointer-events-none"
-                style={{ 
-                  left: `${(priceRange[0] / 1000) * 100}%`,
-                  width: `${((priceRange[1] - priceRange[0]) / 1000) * 100}%`
-                }}
-              />
-            </div>
-            <div className="flex justify-between text-sm text-gray-600">
-              <span>₦{priceRange[0]}</span>
-              <span>₦{priceRange[1]}M</span>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Grocery Type */}
-      <div className="mb-6">
-        <button
-          onClick={() => toggleSection('groceryType')}
-          className="flex justify-between items-center w-full mb-3"
-        >
-          <h3 className="text-base font-medium text-gray-900">Grocery Type</h3>
-          <ChevronDown 
-            className={`w-4 h-4 text-gray-500 transform transition-transform ${
-              expandedSections.groceryType ? 'rotate-180' : ''
-            }`}
-          />
-        </button>
-        
-        {expandedSections.groceryType && (
-          <div className="space-y-3">
-            {groceryTypes.map((groceryType) => (
-              <label key={groceryType} className="flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={selectedGroceryTypes.includes(groceryType)}
-                  onChange={() => handleGroceryTypeChange(groceryType)}
-                  className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                />
-                <span className="ml-3 text-sm text-gray-700">{groceryType}</span>
-              </label>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Applied Filters Summary */}
-      {(selectedCategories.length > 0 || selectedRating || selectedGroceryTypes.length > 0) && (
-        <div className="mt-6 pt-4 border-t border-gray-200">
-          <h4 className="text-sm font-medium text-gray-900 mb-2">Applied Filters:</h4>
-          <div className="flex flex-wrap gap-2">
-            {selectedCategories.map((category) => (
-              <span
-                key={category}
-                className="inline-flex items-center px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
-              >
-                {category}
-                <button
-                  onClick={() => handleCategoryChange(category)}
-                  className="ml-1 text-blue-600 hover:text-blue-800"
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-            {selectedRating && (
-              <span className="inline-flex items-center px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">
-                {selectedRating}+ stars
-                <button
-                  onClick={() => setSelectedRating('')}
-                  className="ml-1 text-yellow-600 hover:text-yellow-800"
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            )}
-            {selectedGroceryTypes.map((groceryType) => (
-              <span
-                key={groceryType}
-                className="inline-flex items-center px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full"
-              >
-                {groceryType}
-                <button
-                  onClick={() => handleGroceryTypeChange(groceryType)}
-                  className="ml-1 text-green-600 hover:text-green-800"
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-          </div>
+            )
+          )}
         </div>
-      )}
-    </div>
-  );
-};
+      </div>
 
-export default GroceryFilter;
+      {/* Price Range Filter */}
+      <div>
+        <h2 className="font-bold mb-2 text-lg">Price Range</h2>
+        <input
+          type="range"
+          min="0"
+          max="50000"
+          step="5"
+          value={filters.price}
+          onChange={(e) =>
+            setFilters((prev:any) => ({ ...prev, price: +e.target.value }))
+          }
+          className="w-full accent-[#013328]"
+        />
+        <p className="text-sm text-gray-600 mt-1">Up to ₦{filters.price}</p>
+      </div>
+
+      {/* Rating Filter */}
+      <div>
+        <h2 className="font-bold mb-2 text-lg">Minimum Rating</h2>
+        <div className="space-y-2">
+          {[5, 4, 3, 2, 1].map((rating) => (
+            <label key={rating} className="block cursor-pointer">
+              <input
+                type="radio"
+                name="rating"
+                value={rating}
+                checked={filters.rating === rating}
+                onChange={() => handleRatingChange(rating)}
+                className="mr-2 accent-[#013328]"
+              />
+              {rating}★ & up
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Reset Filters */}
+      <button
+        onClick={() =>
+          setFilters({
+            category: "All",
+            price: 500,
+            rating: 1,
+            search: "",
+          })
+        }
+        className="w-full bg-gray-200 hover:bg-[#013328] hover:text-white text-gray-700 font-medium py-2 rounded-md transition-colors"
+      >
+        Reset Filters
+      </button>
+    </div>
+  )
+}
+
+export default GroceryFilter

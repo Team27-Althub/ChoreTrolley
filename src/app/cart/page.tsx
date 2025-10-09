@@ -26,7 +26,7 @@ const CartPage = () => {
           <div className="flex flex-col items-center justify-center  w-full h-[50vh]">
             <p className="text-xl text-gray-500">Your cart is empty.</p>
             <Image
-              src={image}
+              src={'/emptycart.svg'}
               alt=""
               width={300}
               height={300}
@@ -51,52 +51,62 @@ const CartPage = () => {
               </div>
               <div className="w-full h-[1px] bg-[#cecccc] my-3"></div>
               <div className="px-3 md:px-5">
-                {items.map((item) => (
+                {items?.map((item) => (
                   <div
-                    key={item.id}
+                    key={item?.id}
                     className="flex flex-row justify-between items-center py-5 px-3 border-[1px] my-3 border-[#cecccc] rounded-lg"
                   >
                     <div className="flex items-center space-x-4 w-full md:w-auto mb-4 md:mb-0">
                       <Image
-                        src={item.image}
-                        alt={item.name || "Item image"}
+                        src={`${item?.imageUrl}` || ''}
+                        alt={item?.name || "Item image"}
                         width={100}
                         height={100}
                         className="w-20 h-20 object-cover rounded-md"
                       />
+                      {/* {console.log(item?.imageUrl)} */}
                       <div className="flex-grow">
-                        <h3 className="text-lg font-semibold">{item.name}</h3>
+                        <h3 className="text-lg font-semibold">{item?.name}</h3>
                         <p className="text-sm text-[#929292]">
-                          {item.category}
+                          {item?.category}
                         </p>
                         <div className="flex items-center space-x-4 mt-4 md:mt-0">
                           <div className="flex items-center space-x-2">
                             <Button
-                              onClick={() =>
-                                updateItemQuantity(item.id, item.quantity ?? -1)
-                              }
+                              onClick={() => {
+                                const quantity = item.quantity ?? 1 // default to 1 if undefined
+                                if (quantity > 1) {
+                                  updateItemQuantity(item.id, quantity - 1)
+                                } else {
+                                  removeItem(item.id)
+                                }
+                              }}
                               variant="ghost"
                               className="p-1 h-8 w-8 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300"
                             >
                               -
                             </Button>
+
                             <span className="text-lg font-medium">
-                              {item.quantity}
+                              {item.quantity ?? 1}
                             </span>
+
                             <Button
-                              onClick={() =>
-                                updateItemQuantity(item.id, item.quantity ?? +1)
-                              }
+                              onClick={() => {
+                                const quantity = item.quantity ?? 0 // default to 0 if undefined
+                                updateItemQuantity(item.id, quantity + 1)
+                              }}
                               variant="ghost"
                               className="p-1 h-8 w-8 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300"
                             >
                               +
                             </Button>
+
                             {/* delete Cart */}
                             <Button
                               className="ml-2 px-3 py-1 bg-red-500 text-white rounded"
                               onClick={() => {
-                                setSelectedItemId(item.id);
+                                setSelectedItemId(item?.id);
                                 // setRemoveCart("deleteItem");
                               }}
                             >
@@ -109,7 +119,7 @@ const CartPage = () => {
 
                     {/* Quantity and price controls */}
                     <h3 className="text-lg font-semibold w-20 text-right">
-                      ₦ {item.itemTotal}
+                      ₦ {item?.itemTotal}
                     </h3>
                   </div>
                 ))}

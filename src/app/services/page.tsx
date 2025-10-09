@@ -62,7 +62,7 @@ const ServicePage = () => {
                 className="bg-white rounded-xl w-full flex flex-col gap-1 shadow-xl"
                
               >
-                  <img src={service.imageUrl} alt="" className='h-[45%] rounded-t-2xl w-full object-cover' />
+                  <img src={`https://choretrolley-apiservice-production.up.railway.app${service.imageUrl}`} alt="" className='h-[45%] rounded-t-2xl w-full object-cover' />
                   <div className='px-2 mt-4'>
                     <h2 className='md:text-xl font-semibold text-lg  text-left'>{service.title}</h2>
                     <p className='text-sm text-gray-500'>{service.category.name}</p>
