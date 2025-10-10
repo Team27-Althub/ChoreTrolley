@@ -21,7 +21,14 @@ export const paymentApi = createApi({
         body: orderData,
       }),
     }),
+     createServiceOrder: builder.mutation({
+      query: (orderData) => ({
+        url: "/services/booking",
+        method: "POST",
+        body: orderData,
+      }),
+    }),
   }),
 });
 
-export const { useCreateOrderMutation } = paymentApi;
+export const { useCreateOrderMutation, useCreateServiceOrderMutation } = paymentApi;

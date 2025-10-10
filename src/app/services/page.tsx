@@ -93,8 +93,13 @@ const ServicePage = () => {
 
                 Array.from({ length: 6 }).map((_, i) => <GroceryCardSkeleton key={i} />)
                 ) : (
-              filteredServices?.map((service:any) => (
-                <Link 
+              filteredServices?.map((service:any) => {
+
+                sessionStorage.setItem('url', `/services/${service.id}-${service.title}`)
+                sessionStorage.setItem('id', service.id)
+
+                return (
+              <Link 
                key={service.id}
                // Use both id and slug in the URL
               href={`/services/${service.id}-${service.title}`} 
@@ -114,7 +119,8 @@ const ServicePage = () => {
                   <p className='text-[12px] block md:hidden text-gray-500'>{service.description.slice(0,70)}....</p>
                   </div>
                 </Link>
-              )))}
+                )
+                }))}
           </div>
         </div>
       </div>

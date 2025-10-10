@@ -15,7 +15,7 @@ const MenuButton = ({ buttonType }: AuthenticationProps) => {
 
   return (
     <div>
-      <Button variant={variant} className="text-[18px] p-2 rounded-md hover:cursor-pointer">
+      <Button variant={variant} className="text-[18px] p-2 md:p-5 rounded-md hover:cursor-pointer">
         {buttonType}
       </Button>
     </div>
