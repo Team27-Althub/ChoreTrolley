@@ -1,12 +1,12 @@
 'use client'
 import React, { useState } from 'react'
-import ContractType from './ContractType'
-import DeliveryInformation from './DeliveryInformation'
-import Payment from './Payment'
-import ShippingMethod from './ShippingMethod'
-import YourDetails from './YourDetails'
-import LoggedInNavbar from '../components/Major/LoggedInNavbar'
-import OrderSummary from './OrderSummary'
+import ContractType from '@/app/checkout/ContractType'
+import DeliveryInformation from '@/app/checkout/DeliveryInformation'
+import Payment from '@/app/checkout/Payment'
+import ShippingMethod from '@/app/checkout/ShippingMethod'
+import YourDetails from '@/app/checkout/YourDetails'
+import LoggedInNavbar from '@/app/components/Major/LoggedInNavbar'
+import OrderSummary from './ServiceSummary'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { useFetchResourceQuery } from "@/redux/api/crudApi";
@@ -29,8 +29,8 @@ const CheckoutPage = () => {
 
 
     <div className="bg-[#F5F5F4] ">
-        <LoggedInNavbar/>
-        <Link href={'/cart'} className='flex px-2 md:px-10 text-xl items-center mt-5'>
+        {/* <LoggedInNavbar/> */}
+        <Link href={'/cart'} className='flex px-2 md:px-10 text-xl items-center pt-5'>
           <ArrowLeft/>  Back
         </Link>
         <h2 className='mx-2 md:mx-10  my-5 text-2xl font-semibold'>Checkout</h2>
@@ -38,7 +38,7 @@ const CheckoutPage = () => {
             <div className='flex flex-col gap-5'>
                 <YourDetails profile={profileData}/>
                 <DeliveryInformation profile={profileData}/>
-                <ShippingMethod onSelect={handleShippingSelect}/>
+                {/* <ShippingMethod onSelect={handleShippingSelect} /> */}
                 {/* <ContractType/> */}
                 {/* <Payment/> */}
             </div>

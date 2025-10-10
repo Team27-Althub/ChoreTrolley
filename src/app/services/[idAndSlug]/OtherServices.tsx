@@ -26,8 +26,8 @@ const OtherServices = () => {
         <div className='w-full max-w-7xl mx-auto text-center'>
           <div className='w-full  grid grid-cols-3 grid-rows-2 gap-4 place-items-center  '>
               {services.map((service) => (
-                <div key={service.name} className='w-100 h-60 bg-white flex flex-col justify-center items-center text-left space-y-3 rounded-lg shadow-lg'>
-                    <Image src={service.image} alt={service.name} width={356} height={85} />
+                <div key={service.name} className=' h-60 bg-white flex flex-col justify-center items-center text-left space-y-3 rounded-lg shadow-lg'>
+                    <Image src={service.image} alt={service.name} />
                    <div className=' w-full text-left px-5 space-y-1'>
                      <p className='font-bold text-base'> {service.name}</p>
                     <p className='text-xs text-black/50'>{service.category}</p>

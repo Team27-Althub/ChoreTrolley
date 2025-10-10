@@ -7,6 +7,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel"
+import Link from 'next/link'
 
 interface item {
   id: string,
@@ -43,7 +44,9 @@ const FeaturedService = () => {
         <div className="mb-5">
           <div className="flex justify-between px-5 mb-3 mt-2 items-center">
             <h2 className="md:text-2xl text-lg font-semibold">Featured Service Vendors</h2>
-            <p className="text-blue-700 md:text-lg text-sm">See all</p>
+            <Link href={'/services'} className='hover:cursor-pointer'>
+              <p className="text-blue-700 md:text-lg text-sm">See all</p>
+            </Link>
           </div>
           <div className="h-[1px] bg-[#7c7c7c] w-full"></div>
         </div>
@@ -69,7 +72,9 @@ const FeaturedService = () => {
       <div className="mb-5">
         <div className="flex justify-between px-5 mb-3 mt-2 items-center">
           <h2 className="md:text-2xl text-lg font-semibold">Featured Service Vendors</h2>
-          <p className="text-blue-700 md:text-lg text-sm">See all</p>
+          <Link href={'/services'} className='hover:cursor-pointer'>
+              <p className="text-blue-700 md:text-lg text-sm">See all</p>
+            </Link>
         </div>
         <div className="h-[1px] bg-[#7c7c7c] w-full"></div>
       </div>
@@ -86,7 +91,7 @@ const FeaturedService = () => {
                 style={{
                   backgroundImage: `
                     linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 1)),
-                    url('${item?.imageUrl}')`,
+                    url('https://choretrolley-apiservice-production.up.railway.app${item?.imageUrl}')`,
                   backgroundPosition: "center",
                   backgroundSize: "cover",
                   backgroundRepeat: "no-repeat",

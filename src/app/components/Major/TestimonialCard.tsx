@@ -6,7 +6,7 @@ import React from 'react'
 type props = {
     category: string,
     opinion: string,
-    rating: string,
+    rating: React.ReactNode,
     name: string,
     role: string,
     dateJoined: string,
@@ -15,12 +15,14 @@ type props = {
 
 const TestimonialCard = ({category, opinion, rating, name, role, dateJoined, image}:props) => {
   return (
-    <div className='bg-[#fff] rounded-sm   p-3 border-[#dddddd] border-2'>
-        <p className='text-[12px] '>{category}</p>
-        <h2 className=' text-lg mb-4 mt-5 text-[#8a8989]'>{opinion}</h2>
-        <span className=''>{rating}</span>
-        <div className='flex justify-between mt-4 items-end'>
+    <div className='bg-[#fff] rounded-sm   p-3 border-[#dddddd] border-2 flex flex-col justify-between'>
+        <div className=''>
+            <p className='text-[12px] '>{category}</p>
+            <h2 className=' text-lg mb-4 mt-5 text-[#8a8989]'>{opinion}</h2>
+        </div>
+        <div className='flex justify-between items-end'>
             <div className=''>
+                 {rating}
                 <h4 className='text-[13px] font-bold'>{name}</h4>
                 <p className='text-[12px] text-[#8a8989]'>{role}</p>
                 <p className='text-[12px] text-[#8a8989]'>Joined since {dateJoined}</p>

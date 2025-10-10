@@ -1,315 +1,183 @@
 'use client'
-import React, { useState } from 'react';
-import { ChevronDown, Search, X } from 'lucide-react';
+import React from 'react'
+import { useFetchResourceQuery } from '@/redux/api/crudApi'
 
-interface ExpandedSections {
-  category: boolean;
-  rating: boolean;
-  priceRange: boolean;
-  serviceType: boolean;
-}
+const ServiceFilter = ({ filters, setFilters }: any) => {
+      const {data: serviceCategory, error:category, isLoading:loading} = useFetchResourceQuery('/services/categories')
+  const handleCategoryChange = (category: string) => {
+    if (category === 'All') {
+      setFilters((prev: any) => ({
+        ...prev,
+        categories: [],
+      }))
+    } else {
+      setFilters((prev: any) => ({
+        ...prev,
+        categories:
+          prev.categories.includes(category)
+            ? prev.categories.filter((c: string) => c !== category)
+            : [...prev.categories, category],
+      }))
+    }
+  }
 
-interface Rating {
-  value: string;
-  label: string;
-  stars: number;
-}
-
-const ServiceFilter: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedRating, setSelectedRating] = useState<string>('');
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
-  const [selectedServiceTypes, setSelectedServiceTypes] = useState<string[]>([]);
-  const [expandedSections, setExpandedSections] = useState<ExpandedSections>({
-    category: true,
-    rating: true,
-    priceRange: true,
-    serviceType: true
-  });
-
-  const categories: string[] = [
-    'Home Cleaning',
-    'Cooking',
-    'Laundry',
-    'Handy Man',
-    'Gardening',
-    'Pet Care'
-  ];
-
-  const ratings: Rating[] = [
-    { value: '5.0', label: '5.0', stars: 5 },
-    { value: '4.0', label: '4.0 & up', stars: 4 },
-    { value: '3.0', label: '3.0 & up', stars: 3 },
-    { value: '2.0', label: '2.0 & up', stars: 2 },
-    { value: '1.0', label: '1.0 & up', stars: 1 }
-  ];
-
-  const serviceTypes: string[] = [
-    'Full time',
-    'Part Time',
-    'On-Demand'
-  ];
-
-  const handleCategoryChange = (category: string): void => {
-    setSelectedCategories(prev => 
-      prev.includes(category) 
-        ? prev.filter(c => c !== category)
-        : [...prev, category]
-    );
-  };
-
-  const handleServiceTypeChange = (serviceType: string): void => {
-    setSelectedServiceTypes(prev => 
-      prev.includes(serviceType) 
-        ? prev.filter(s => s !== serviceType)
-        : [...prev, serviceType]
-    );
-  };
-
-  const toggleSection = (section: keyof ExpandedSections): void => {
-    setExpandedSections(prev => ({
+  const handleRatingChange = (rating: string) => {
+    setFilters((prev: any) => ({
       ...prev,
-      [section]: !prev[section]
-    }));
-  };
+      rating: prev.rating === rating ? '' : rating,
+    }))
+  }
 
-  const clearAllFilters = (): void => {
-    setSearchQuery('');
-    setSelectedCategories([]);
-    setSelectedRating('');
-    setPriceRange([0, 1000]);
-    setSelectedServiceTypes([]);
-  };
+  const handlePriceChange = (e: any) => {
+    const value = Number(e.target.value)
+    setFilters((prev: any) => ({
+      ...prev,
+      priceRange: [0, value],
+    }))
+  }
 
-  const renderStars = (count: number): React.ReactNode[] => {
-    return Array.from({ length: 5 }, (_, i) => (
-      <span
-        key={i}
-        className={`text-sm ${
-          i < count ? 'text-yellow-400' : 'text-gray-300'
-        }`}
-      >
-        ★
-      </span>
-    ));
-  };
+  const handleServiceTypeChange = (type: string) => {
+    setFilters((prev: any) => ({
+      ...prev,
+      serviceTypes:
+        prev.serviceTypes.includes(type)
+          ? prev.serviceTypes.filter((t: string) => t !== type)
+          : [...prev.serviceTypes, type],
+    }))
+  }
 
   return (
-    <div className=" bg-white p-6  rounded-lg ">
-      {/* Header */}
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
-        <button 
-          onClick={clearAllFilters}
-          className="text-sm text-gray-500 hover:text-gray-700 underline"
-        >
-          Clear all
-        </button>
-      </div>
-
+    <div className="p-4 space-y-6">
       {/* Search */}
-      <div className="relative mb-6">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+      <div>
+        <h2 className="font-bold mb-2 text-lg">Search</h2>
         <input
           type="text"
-          placeholder="Search for services"
-          value={searchQuery}
-                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
-          className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+          value={filters.search}
+          onChange={(e) =>
+            setFilters((prev: any) => ({ ...prev, search: e.target.value }))
+          }
+          placeholder="Search services..."
+          className="w-full border rounded-md px-3 py-2 outline-none focus:ring-2 focus:ring-[#013328]"
         />
       </div>
 
-      {/* Category */}
-      <div className="mb-6">
-        <button
-          onClick={() => toggleSection('category')}
-          className="flex justify-between items-center w-full mb-3"
-        >
-          <h3 className="text-base font-medium text-gray-900">Category</h3>
-          <ChevronDown 
-            className={`w-4 h-4 text-gray-500 transform transition-transform ${
-              expandedSections.category ? 'rotate-180' : ''
-            }`}
-          />
-        </button>
-        
-        {expandedSections.category && (
-          <div className="space-y-3">
-            {categories.map((category) => (
-              <label key={category} className="flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={selectedCategories.includes(category)}
-                  onChange={() => handleCategoryChange(category)}
-                  className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                />
-                <span className="ml-3 text-sm text-gray-700">{category}</span>
-              </label>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Rating */}
-      <div className="mb-6">
-        <button
-          onClick={() => toggleSection('rating')}
-          className="flex justify-between items-center w-full mb-3"
-        >
-          <h3 className="text-base font-medium text-gray-900">Rating</h3>
-          <ChevronDown 
-            className={`w-4 h-4 text-gray-500 transform transition-transform ${
-              expandedSections.rating ? 'rotate-180' : ''
-            }`}
-          />
-        </button>
-        
-        {expandedSections.rating && (
-          <div className="space-y-3">
-            {ratings.map((rating) => (
-              <label key={rating.value} className="flex items-center cursor-pointer">
-                <input
-                  type="radio"
-                  name="rating"
-                  value={rating.value}
-                  checked={selectedRating === rating.value}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSelectedRating(e.target.value)}
-                  className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                />
-                <div className="ml-3 flex items-center gap-2">
-                  <div className="flex">
-                    {renderStars(rating.stars)}
-                  </div>
-                  <span className="text-sm text-gray-700">{rating.label}</span>
-                </div>
-              </label>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Price Range */}
-      <div className="mb-6">
-        <button
-          onClick={() => toggleSection('priceRange')}
-          className="flex justify-between items-center w-full mb-3"
-        >
-          <h3 className="text-base font-medium text-gray-900">Price Range</h3>
-          <ChevronDown 
-            className={`w-4 h-4 text-gray-500 transform transition-transform ${
-              expandedSections.priceRange ? 'rotate-180' : ''
-            }`}
-          />
-        </button>
-        
-        {expandedSections.priceRange && (
-          <div className="space-y-4">
-            <div className="relative">
+        {/* Category Filter */}
+        <div>
+          <h2 className="font-bold mb-2 text-lg">Category</h2>
+          <div className="space-y-2">
+            {/* “All” option */}
+            <label className="block cursor-pointer">
               <input
-                type="range"
-                min="0"
-                max="1000"
-                value={priceRange[1]}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
-                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                type="checkbox"
+                checked={filters.categories.length === 0}
+                onChange={() =>
+                  setFilters((prev: any) => ({
+                    ...prev,
+                    categories: [],
+                  }))
+                }
+                className="mr-2 accent-[#013328]"
               />
-              <div 
-                className="absolute top-0 h-2 bg-green-600 rounded-lg pointer-events-none"
-                style={{ 
-                  left: `${(priceRange[0] / 1000) * 100}%`,
-                  width: `${((priceRange[1] - priceRange[0]) / 1000) * 100}%`
-                }}
-              />
-            </div>
-            <div className="flex justify-between text-sm text-gray-600">
-              <span>₦{priceRange[0]}</span>
-              <span>₦{priceRange[1]}M</span>
-            </div>
-          </div>
-        )}
-      </div>
+              All
+            </label>
 
-      {/* Service Type */}
-      <div className="mb-6">
-        <button
-          onClick={() => toggleSection('serviceType')}
-          className="flex justify-between items-center w-full mb-3"
-        >
-          <h3 className="text-base font-medium text-gray-900">Service Type</h3>
-          <ChevronDown 
-            className={`w-4 h-4 text-gray-500 transform transition-transform ${
-              expandedSections.serviceType ? 'rotate-180' : ''
-            }`}
-          />
-        </button>
-        
-        {expandedSections.serviceType && (
-          <div className="space-y-3">
-            {serviceTypes.map((serviceType) => (
-              <label key={serviceType} className="flex items-center cursor-pointer">
+            {/* Dynamic categories from API */}
+            {serviceCategory?.data?.map((category: any) => (
+              <label key={category.id} className="block cursor-pointer capitalize">
                 <input
                   type="checkbox"
-                  checked={selectedServiceTypes.includes(serviceType)}
-                  onChange={() => handleServiceTypeChange(serviceType)}
-                  className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                  checked={filters.categories.includes(category.name)}
+                  onChange={() => {
+                    setFilters((prev: any) => {
+                      const isSelected = prev.categories.includes(category.name)
+                      return {
+                        ...prev,
+                        categories: isSelected
+                          ? prev.categories.filter((c: string) => c !== category.name)
+                          : [...prev.categories, category.name],
+                      }
+                    })
+                  }}
+                  className="mr-2 accent-[#013328]"
                 />
-                <span className="ml-3 text-sm text-gray-700">{serviceType}</span>
+                {category.name}
               </label>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Applied Filters Summary */}
-      {(selectedCategories.length > 0 || selectedRating || selectedServiceTypes.length > 0) && (
-        <div className="mt-6 pt-4 border-t border-gray-200">
-          <h4 className="text-sm font-medium text-gray-900 mb-2">Applied Filters:</h4>
-          <div className="flex flex-wrap gap-2">
-            {selectedCategories.map((category) => (
-              <span
-                key={category}
-                className="inline-flex items-center px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
-              >
-                {category}
-                <button
-                  onClick={() => handleCategoryChange(category)}
-                  className="ml-1 text-blue-600 hover:text-blue-800"
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-            {selectedRating && (
-              <span className="inline-flex items-center px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">
-                {selectedRating}+ stars
-                <button
-                  onClick={() => setSelectedRating('')}
-                  className="ml-1 text-yellow-600 hover:text-yellow-800"
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            )}
-            {selectedServiceTypes.map((serviceType) => (
-              <span
-                key={serviceType}
-                className="inline-flex items-center px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full"
-              >
-                {serviceType}
-                <button
-                  onClick={() => handleServiceTypeChange(serviceType)}
-                  className="ml-1 text-green-600 hover:text-green-800"
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
             ))}
           </div>
         </div>
-      )}
-    </div>
-  );
-};
 
-export default ServiceFilter;
+
+      {/* Price Range */}
+      <div>
+        <h2 className="font-bold mb-2 text-lg">Price Range</h2>
+        <input
+          type="range"
+          min="0"
+          max="500000"
+          step="500"
+          value={filters.priceRange[1]}
+          onChange={handlePriceChange}
+          className="w-full accent-[#013328]"
+        />
+        <p className="text-sm text-gray-600 mt-1">
+          Up to ₦{filters.priceRange[1].toLocaleString()}
+        </p>
+      </div>
+
+      {/* Rating */}
+      <div>
+        <h2 className="font-bold mb-2 text-lg">Minimum Rating</h2>
+        <div className="space-y-2">
+          {[5, 4, 3, 2, 1].map((rating) => (
+            <label key={rating} className="block cursor-pointer">
+              <input
+                type="checkbox"
+                checked={filters.rating === String(rating)}
+                onChange={() => handleRatingChange(String(rating))}
+                className="mr-2 accent-[#013328]"
+              />
+              {rating}★ & up
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Service Type */}
+      <div>
+        <h2 className="font-bold mb-2 text-lg">Service Type</h2>
+        <div className="space-y-2">
+          {['Online', 'Onsite'].map((type) => (
+            <label key={type} className="block cursor-pointer">
+              <input
+                type="checkbox"
+                checked={filters.serviceTypes.includes(type)}
+                onChange={() => handleServiceTypeChange(type)}
+                className="mr-2 accent-[#013328]"
+              />
+              {type}
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Reset */}
+      <button
+        onClick={() =>
+          setFilters({
+            search: '',
+            categories: [],
+            rating: '',
+            priceRange: [0, 500000],
+            serviceTypes: [],
+          })
+        }
+        className="w-full bg-gray-200 hover:bg-[#013328] hover:text-white text-gray-700 font-medium py-2 rounded-md transition-colors"
+      >
+        Reset Filters
+      </button>
+    </div>
+  )
+}
+
+export default ServiceFilter

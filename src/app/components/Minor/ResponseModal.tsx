@@ -14,7 +14,7 @@ const ResponseModal = ({responses}:response) => {
         } else {
             setColor('bg-red')
         }
-    })
+    }, [])
 
   return (
     <div className={`text-white ${color} w-full text-center py-2`}>

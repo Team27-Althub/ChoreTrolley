@@ -22,7 +22,7 @@ const PaymentSuccessPage = () => {
 
   // If success, empty the cart once
   React.useEffect(() => {
-    if (isSuccess && data?.status === 'success') {
+    if (isSuccess && data?.data?.status === 'success') {
       emptyCart();
     }
   }, [isSuccess, data, emptyCart]);
@@ -31,7 +31,7 @@ const PaymentSuccessPage = () => {
     <div className="bg-[#F5F5F4] min-h-screen">
       <LoggedInNavbar />
       <div className="p-6 rounded-lg shadow-sm w-full">
-        <div className="md:px-10 grid gap-5 pt-5 pb-10 grid-cols-1 md:grid-cols-[60%_40%]">
+        <div className="md:px-10 px-2 grid gap-5 pt-5 pb-10 grid-cols-1 md:grid-cols-[60%_40%]">
           {/* Left Section */}
           <div className="flex flex-col gap-5">
             <div className="h-[400px] flex flex-col items-center justify-center bg-white rounded-xl">
@@ -46,15 +46,15 @@ const PaymentSuccessPage = () => {
                   <h2 className="lg:text-3xl text-2xl font-semibold my-5 text-red-600">
                     Payment Verification Failed
                   </h2>
-                  <p className="text-gray-600">We couldn’t verify your transaction. Please try again.</p>
+                  <p className="text-gray-600 text-center">We couldn’t verify your transaction. Please try again.</p>
                 </>
               ) : (
                 <>
                   <Image src="/Group 77.png"  alt="success" />
-                  <h2 className="lg:text-4xl text-2xl font-semibold my-5 text-green-700">
+                  <h2 className="lg:text-4xl text-2xl text-center font-semibold my-5 text-green-700">
                     Order Placed Successfully
                   </h2>
-                  <p className="text-lg font-semibold mt-5 mb-10 text-[#4e4e4eaf]">
+                  <p className="text-lg text-center font-semibold mt-5 mb-10 text-[#4e4e4eaf]">
                     Your order has been verified successfully.
                   </p>
                 </>

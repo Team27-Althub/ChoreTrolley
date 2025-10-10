@@ -17,8 +17,74 @@ import WhyUs2 from "./components/Major/WhyUs2";
 import JoinUs from "./components/Major/JoinUs";
 import Hero from "./components/Major/Hero";
 import LoggedInNavbar from "./components/Major/LoggedInNavbar";
+import RenderStars from "./services/Stars";
 
 export default function Home() {
+
+  const reviews = [
+  {
+    name: "Grace Adebayo",
+    imageUrl: 'https://atodmagazine.com/wp-content/uploads/2021/02/Nigeria-1050x700.jpg',
+    occupation: "Nurse",
+    rating: 5,
+    category: "All-in-One",
+    dateJoined: "2025-03-12",
+    review:
+      "I’m so impressed with their home management service. My apartment is spotless every week, the meals are healthy and delicious, and my laundry is always neatly folded. Truly a lifesaver for my busy schedule!",
+  },
+  {
+    name: "Chinedu Okeke",
+    imageUrl: 'https://wikimediafoundation.org/wp-content/uploads/2018/02/sam_oye_wiki_indaba_2017_portraits1-e1534046032973.jpg?w=1024',
+    occupation: "Civil Engineer",
+    rating: 4.6,
+    category: "Cleaning & Laundry",
+    dateJoined: "2025-11-25",
+    review:
+      "The cleaning and laundry services are top-notch. They’re always on time and very organized. The cooking could use a bit more variety, but overall, I’m very satisfied with their professionalism.",
+  },
+  {
+    name: "Fatima Mohammed",
+    imageUrl: 'https://c8.alamy.com/comp/2G7BED7/friendly-young-student-yankari-national-park-eastern-nigeria-2G7BED7.jpg',
+    occupation: "Teacher",
+    rating: 5,
+    category: "Cooking & Cleaning",
+    dateJoined: "2025-01-09",
+    review:
+      "Absolutely love their service! They keep my home sparkling clean, meals are well-prepared, and my clothes smell amazing after every wash. It’s like having a personal assistant for everything at home.",
+  },
+  {
+    name: "Daniel Johnson",
+    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIJjmY9AdPysVgXzAPXU71nZeYGpE9dgBn4A&s',
+    occupation: "Accountant",
+    rating: 4,
+    category: "All-in-One",
+    dateJoined: "2025-09-30",
+    review:
+      "Their team is reliable and efficient. I come home to a clean space, folded laundry, and freshly cooked food. It’s been such a relief not having to worry about daily chores after work.",
+  },
+  {
+    name: "Blessing Eze",
+    imageUrl: 'https://www.shutterstock.com/image-photo/smile-black-woman-portrait-office-260nw-2467959915.jpg',
+    occupation: "Pharmacist",
+    rating: 4,
+    category: "Cleaning",
+    dateJoined: "2025-02-15",
+    review:
+      "Fantastic service! They handle cleaning, cooking, and laundry perfectly. My weekends are finally free, and my house has never looked better. Highly recommend for anyone with a busy lifestyle.",
+  },
+  {
+    name: "Oluwatobi Ajayi",
+    imageUrl: 'https://www.shutterstock.com/image-photo/smiling-nigerian-man-standing-isolated-260nw-2304008651.jpg',
+    occupation: "Software Developer",
+    rating: 4.9,
+    category: "Laundry & Cooking",
+    dateJoined: "2025-06-22",
+    review:
+      "Amazing experience so far. Their meals are well-balanced and tasty, and my clothes come back fresh and neatly ironed every time. Definitely worth every penny!",
+  },
+];
+
+
   return (
     <div>
       <Navbar/>
@@ -101,60 +167,20 @@ export default function Home() {
         <h2 className="text-center text-3xl font-bold ">What Our Customers Say</h2>
         <p className="text-center text-xl text-[#8a8989] my-2 ">Hear from real users who have simplified their lives with ChoreTrolly.</p> 
         <div className=" grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-20 w-full mt-15 ">
-          <TestimonialCard 
-            category={'Groceries'} 
-            opinion="“Harry came in and helped do the laundry that has been piling up for weeks due to our very busy work schedule. His diligence and honesty is exceptional.”"
-            rating={'⭐⭐⭐⭐⭐'}
-            name="James"
-            role="developer"
-            dateJoined="2025"
-            image={'https://www.shutterstock.com/image-photo/smiling-african-american-millennial-businessman-600nw-1437938108.jpg'}
-          />
-          <TestimonialCard 
-            category={'Groceries'} 
-            opinion="“Harry came in and helped do the laundry that has been piling up for weeks due to our very busy work schedule. His diligence and honesty is exceptional.”"
-            rating={'⭐⭐⭐⭐⭐'}
-            name="James"
-            role="developer"
-            dateJoined="2025"
-            image={'https://www.shutterstock.com/image-photo/smiling-african-american-millennial-businessman-600nw-1437938108.jpg'}
-          />
-          <TestimonialCard 
-            category={'Groceries'} 
-            opinion="“Harry came in and helped do the laundry that has been piling up for weeks due to our very busy work schedule. His diligence and honesty is exceptional.”"
-            rating={'⭐⭐⭐⭐⭐'}
-            name="James"
-            role="developer"
-            dateJoined="2025"
-            image={'https://www.shutterstock.com/image-photo/smiling-african-american-millennial-businessman-600nw-1437938108.jpg'}
-          />
-          <TestimonialCard 
-            category={'Groceries'} 
-            opinion="“Harry came in and helped do the laundry that has been piling up for weeks due to our very busy work schedule. His diligence and honesty is exceptional.”"
-            rating={'⭐⭐⭐⭐⭐'}
-            name="James"
-            role="developer"
-            dateJoined="2025"
-            image={'https://www.shutterstock.com/image-photo/smiling-african-american-millennial-businessman-600nw-1437938108.jpg'}
-          />
-          <TestimonialCard 
-            category={'Groceries'} 
-            opinion="“Harry came in and helped do the laundry that has been piling up for weeks due to our very busy work schedule. His diligence and honesty is exceptional.”"
-            rating={'⭐⭐⭐⭐⭐'}
-            name="James"
-            role="developer"
-            dateJoined="2025"
-            image={'https://www.shutterstock.com/image-photo/smiling-african-american-millennial-businessman-600nw-1437938108.jpg'}
-          />
-          <TestimonialCard 
-            category={'Groceries'} 
-            opinion="“Harry came in and helped do the laundry that has been piling up for weeks due to our very busy work schedule. His diligence and honesty is exceptional.”"
-            rating={'⭐⭐⭐⭐⭐'}
-            name="James"
-            role="developer"
-            dateJoined="2025"
-            image={'https://www.shutterstock.com/image-photo/smiling-african-american-millennial-businessman-600nw-1437938108.jpg'}
-          />
+
+          {reviews.map((review) => {
+            return (
+              <TestimonialCard 
+                category={review.category} 
+                opinion={review.review}
+                rating={<RenderStars count={review.rating}/>}
+                name={review.name}
+                role={review.occupation}
+                dateJoined={review.dateJoined}
+                image={review.imageUrl}
+              />
+              )
+            })}
       </div>
     </div>
 

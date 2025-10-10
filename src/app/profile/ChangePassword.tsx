@@ -2,28 +2,39 @@
 import React, { useState } from 'react';
 // import { console } from 'inspector';
 import SuccessModal from "./SuccessModal"
+import { useUpdatePasswordMutation } from '@/redux/api/authApi';
+import { useToast } from '../components/Minor/ReactToast';
 
 const ChangePassword = () => {
   const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [oldPassword, setOldPassword] = useState('');
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false)
+  const [updatePassword, {isLoading}] = useUpdatePasswordMutation()
+  const {toast} = useToast()
 
-  const handleUpdatePassword = (e: React.FormEvent) => {
+  const handleUpdatePassword = async (e: React.FormEvent) => {
     e.preventDefault();
     // Add your password update logic here
     console.log('New Password:', newPassword);
-    console.log('Confirm Password:', confirmPassword);
+    console.log('old Password:', oldPassword);
     // You would typically send this data to an API
-    if (newPassword !== confirmPassword) {
-      alert("Password do not match")
-      return;
+
+    try {
+      await updatePassword({oldPassword, newPassword}).unwrap()
+      toast({
+        title: "Successful",
+        description: 'Password changed successfully',
+        type: "success",
+      });
+    } catch(err) {
+      toast({
+        title: "Error",
+        description: 'Something went wrong, try again',
+        type: "error",
+      });
     }
-    // Call Api here
-    console.log("Password updated", newPassword)
-    // render if password is true
-    setShowSuccess(true);
   };
 
   return (
@@ -36,6 +47,56 @@ const ChangePassword = () => {
 
         {/* Form */}
         <form onSubmit={handleUpdatePassword} className="space-y-6">
+          <div>
+            <label htmlFor="confirm-password" className="block text-base font-semibold text-gray-700 mb-2">
+              Enter Old Password
+            </label>
+            <div className="relative">
+              <input
+                type={showConfirmPassword ? 'text' : 'password'}
+                id="confirm-password"
+                value={oldPassword}
+                onChange={(e) => setOldPassword(e.target.value)}
+                required
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-3 text-base pr-12 focus:ring-indigo-500 focus:border-indigo-500"
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 text-gray-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  {showConfirmPassword ? (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  ) : (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13.875 18.825A10.05 10.05 0 0112 19c-4.418 0-8-3.582-8-8 0-1.488.402-2.883 1.112-4.06M17.893 3.66A10.05 10.05 0 0119 11c0 4.418-3.582 8-8 8a9.92 9.92 0 01-3.66-.53M4 4l16 16"
+                    />
+                  )}
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
           {/* New Password Field */}
           <div>
             <label htmlFor="new-password" className="block text-base font-semibold text-gray-700 mb-2">
@@ -88,57 +149,7 @@ const ChangePassword = () => {
             </div>
           </div>
 
-          {/* Confirm Password Field */}
-          <div>
-            <label htmlFor="confirm-password" className="block text-base font-semibold text-gray-700 mb-2">
-              Enter New Password
-            </label>
-            <div className="relative">
-              <input
-                type={showConfirmPassword ? 'text' : 'password'}
-                id="confirm-password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-3 text-base pr-12 focus:ring-indigo-500 focus:border-indigo-500"
-              />
-              <button
-                type="button"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-gray-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  {showConfirmPassword ? (
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                  ) : (
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M13.875 18.825A10.05 10.05 0 0112 19c-4.418 0-8-3.582-8-8 0-1.488.402-2.883 1.112-4.06M17.893 3.66A10.05 10.05 0 0119 11c0 4.418-3.582 8-8 8a9.92 9.92 0 01-3.66-.53M4 4l16 16"
-                    />
-                  )}
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
+          
 
           {/* Submit Button */}
           <div className="mt-8">

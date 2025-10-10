@@ -11,6 +11,7 @@ import { useLoginMutation } from "@/redux/api/authApi";
 // import Router from 'next/navigation'
 import { useRouter } from "next/navigation";
 import LoginErrorModal from "../profile/FeedbackErrorModal";
+import { useToast } from "../components/Minor/ReactToast";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -21,6 +22,7 @@ const LoginPage = () => {
   const [loginErrModal, setLoginErrModal] = useState(false);
   const [responseError, setResponseError] = useState<string | null>(null);
   const route = useRouter();
+  const { toast } = useToast()
 
   const validateForm = () => {
     const newErrors: { [key: string]: string } = {};
@@ -57,35 +59,50 @@ const LoginPage = () => {
 
     try {
       const result = await login({ email, password }).unwrap();
+      
+
       sessionStorage.setItem("accessToken", result.data.accessToken);
       sessionStorage.setItem("refreshToken", result.data.refreshToken);
       sessionStorage.setItem("firstName", result.data.user.firstName);
       sessionStorage.setItem("lastName", result.data.user.lastName);
       sessionStorage.setItem("email", result.data.user.email);
       sessionStorage.setItem("userId", result.data.user.id);
+      const firstName = sessionStorage.getItem('firstName')
+      toast({
+        title: "Login Successful",
+        description: `Welcome back, ${firstName}`,
+        type: "success",
+      });
       route.push("/dashboard");
     } catch (err: any) {
       if (err?.status === 401) {
         setResponseError("Invalid Login Credentials!"); //Unauthorized email/password
-        setLoginErrModal(true);
+        // setLoginErrModal(true);
       } else if (!navigator.onLine) {
         setResponseError(
           "Network error: Please check your internet connection" //Internet error/Timeout
         );
-        setLoginErrModal(true);
+        // setLoginErrModal(true);
       } else if (err?.status) {
         setResponseError(err?.data?.message || "Server error, pls try again"); //Other status code
-        setLoginErrModal(true);
+        // setLoginErrModal(true);
       } else {
         setResponseError("Something went wrong. pls try again"); //Fallback
-        setLoginErrModal(true);
+        // setLoginErrModal(true);
       }
+
+      toast({
+        title: "Error",
+        description: responseError || '',
+        type: "error",
+      });
+
     }
   };
 
   return (
     <div className="flex justify-center items-center h-screen w-screen bg-[#F5F5F4]">
-      <div className="px-10 py-5 relative bg-white shadow-[#aaaaaa]  shadow-xl flex items-center rounded-2xl flex-col w-[90%] md:w-[60%] lg:w-[40%]">
+      <div className="md:px-10 py-5 relative bg-white shadow-[#aaaaaa]  shadow-xl flex items-center rounded-2xl flex-col w-[90%] md:w-[60%] lg:w-[40%]">
         <Image src={logo} alt="Logo" width={50} height={40} className="mb-10" />
         <h2 className="text-2xl font-medium">Welcome Back</h2>
         <h4 className="text font-normal">Login into your account</h4>
@@ -149,7 +166,7 @@ const LoginPage = () => {
             {isLoading ? "Signing in" : "Login"}
           </Button>
 
-          <div className="flex items-center w-full my-5">
+          {/* <div className="flex items-center w-full my-5">
             <div className="flex-grow border-t border-gray-300"></div>
             <span className="flex-shrink mx-4 text-gray-400 text-sm">OR</span>
             <div className="flex-grow border-t border-gray-300"></div>
@@ -163,7 +180,7 @@ const LoginPage = () => {
               className=""
             />
             Continue with Google
-          </div>
+          </div> */}
         </form>
         <p className="mt-8">
           Don’t have an account?{" "}
@@ -172,11 +189,11 @@ const LoginPage = () => {
           </span>
         </p>
       </div>
-      <LoginErrorModal
+      {/* <LoginErrorModal
         open={loginErrModal}
         onClose={() => setLoginErrModal(false)}
         message={responseError}
-      />
+      /> */}
     </div>
   );
 };

@@ -10,6 +10,7 @@ import { notFound } from "next/navigation";
 
 export default function ServiceDetailsClient({ serviceId }: { serviceId: string }) {
   const { data, isLoading, isError } = useFetchResourceQuery("/services");
+  
 
   if (isLoading) return <p className="text-center mt-10">Loading...</p>;
   if (isError) return <p className="text-center text-red-500 mt-10">Failed to load service</p>;
@@ -28,7 +29,7 @@ export default function ServiceDetailsClient({ serviceId }: { serviceId: string 
           <ServiceDetails Details={Details} />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-5 w-full px-20 gap-3 md:my-10">
+        <div className="grid grid-cols-1 lg:grid-cols-5 w-full px-3 md:px-10 lg:px-20 gap-3 md:my-10">
           <div className="md:col-span-3 min-w-0">
             <Scheduling />
           </div>

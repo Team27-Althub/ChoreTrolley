@@ -10,6 +10,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation"; 
 import { useSignupMutation } from "@/redux/api/authApi";
 import SuccessModal from "../profile/SuccessModal";
+import { useToast } from "../components/Minor/ReactToast";
+
 
 const SignupPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -19,23 +21,25 @@ const SignupPage = () => {
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState("");
   const [error, setError] = useState<{ [key: string]: string }>({});
+  const [modalError, setModalError] = useState('')
   const [openModal, setOpenModal] = useState(false);
   const router = useRouter();
+  const {toast} = useToast()
 
-  const [signup, { isLoading, isSuccess }] = useSignupMutation();
+  const [signup, { isLoading, isSuccess, isError }] = useSignupMutation();
 
   const validateForm = () => {
     const newErrors: { [key: string]: string } = {};
 
     if (!firstName.trim()) {
       newErrors.firstname = "Firstname is required";
-    } else if (!/^[A-Za-z]+(-[A-Za-z]+)*$/.test(firstName)) {
+    } else if (!/^[A-Za-z]+([-\s][A-Za-z]+)*$/.test(firstName.trim())) {
       newErrors.firstname =
         "Firstname can only contain letters and a single hyphen between words";
     }
     if (!lastName.trim()) {
       newErrors.lastname = "Lastname is required";
-    } else if (!/^[A-Za-z]+(-[A-Za-z]+)*$/.test(lastName)) {
+    } else if (!/^[A-Za-z]+([-\s][A-Za-z]+)*$/.test(lastName.trim())) {
       newErrors.lastname =
         "Lastname can only contain letters and a single hyphen between words";
     }
@@ -69,7 +73,21 @@ const SignupPage = () => {
       //Redirect to success page after successful signup
       //  router.push("/signup/success");
     } catch (err: any) {
-      setError(err?.data?.message || "Error Signing Up, Try again.");
+      if (err?.data?.message?.toLowerCase().includes("already exists")) {
+          setModalError("Unable to create an account with those details.");
+        } 
+        else if (err?.data?.statusCode >= 500) {
+          setModalError("Something went wrong on our end. Please try again later.");
+        } 
+        else {
+          setModalError("We couldn’t complete your request. Please try again.");
+        }
+       toast({
+        title: "Error",
+        description: modalError,
+        type: "error",
+      });
+
     }
   };
   //  Open Modal if sign up is successful
@@ -81,7 +99,7 @@ const SignupPage = () => {
   return (
     <>
       <div className="flex justify-center items-center w-screen bg-[#F5F5F4] relative">
-        <div className="p-10 my-10 bg-white shadow-[#aaaaaa] shadow-xl flex items-center rounded-2xl flex-col w-[90%] md:w-[60%] lg:w-[40%]">
+        <div className="p-4 md:p-10 my-10 bg-white shadow-[#aaaaaa] shadow-xl flex items-center rounded-2xl flex-col w-[92%] md:w-[60%] lg:w-[40%]">
           <Image
             src={logo}
             alt="Logo"
@@ -90,7 +108,7 @@ const SignupPage = () => {
             className="mb-7"
           />
           <h2 className="text-2xl font-medium">Create account</h2>
-          <h4 className="font-normal">
+          <h4 className="font-normal text-center">
             Create your account to start using ChoreTrolly
           </h4>
           {error.general && (
@@ -187,7 +205,7 @@ const SignupPage = () => {
             >
               {isLoading ? "Signing up..." : "Signup"}
             </Button>
-            <div className="flex items-center w-full my-5">
+            {/* <div className="flex items-center w-full my-5">
               <div className="flex-grow border-t border-gray-300"></div>
               <span className="flex-shrink mx-4 text-gray-400 text-sm">OR</span>
               <div className="flex-grow border-t border-gray-300"></div>
@@ -201,7 +219,7 @@ const SignupPage = () => {
                 className=""
               />
               signup with Google
-            </div>
+            </div> */}
           </form>
           <p>
             Already have an account?{" "}

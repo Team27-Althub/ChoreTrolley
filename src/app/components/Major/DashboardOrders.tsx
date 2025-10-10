@@ -14,54 +14,22 @@ const DashboardOrders = () => {
                     </div>
                     <div className='h-[1px] bg-[#7c7c7c] w-full'></div>
                     <div className='mt-5 px-4'>
-                      <div className='mb-7 '>
-                        <div className='flex justify-between  mb-5'>
-                          <div>
-                            <h4 className='font-semibold text-lg'>Order #CTS9876 - Cleaning Service</h4>
-                            <p className='text-sm text-[#0000008e] '>Due in 30 mins</p>
-                          </div>
-                          <Button variant={'statusInProgress'}>
-                            In Progress
-                          </Button>
-                        </div>
-                        <div className='h-[1px] bg-[#c7c7c7] w-full'></div>
-                      </div>
-                      <div className='mb-7'>
-                        <div className='flex justify-between  mb-5'>
-                          <div>
-                            <h4 className='font-semibold text-lg'>Order #CTS9876 - Cleaning Service</h4>
-                            <p className='text-sm text-[#0000008e] '>Due in 30 mins</p>
-                          </div>
-                          <Button variant={'statusPending'}>
-                            Pending
-                          </Button>
-                        </div>
-                        <div className='h-[1px] bg-[#c7c7c7] w-full'></div>
-                      </div>
-                      <div className='mb-7'>
-                        <div className='flex justify-between  mb-5'>
-                          <div>
-                            <h4 className='font-semibold text-lg'>Order #CTS9876 - Cleaning Service</h4>
-                            <p className='text-sm text-[#0000008e] '>Due in 30 mins</p>
-                          </div>
-                          <Button variant={'statusCompleted'}>
-                            Completed
-                          </Button>
-                        </div>
-                        <div className='h-[1px] bg-[#c7c7c7] w-full'></div>
-                      </div>
-                      <div className='mb-7'>
-                        <div className='flex justify-between  mb-5'>
-                          <div>
-                            <h4 className='font-semibold text-lg'>Order #CTS9876 - Cleaning Service</h4>
-                            <p className='text-sm text-[#0000008e] '>Due in 30 mins</p>
-                          </div>
-                          <Button variant={'statusPending'}>
-                            Pending
-                          </Button>
-                        </div>
-                        <div className='h-[1px] bg-[#c7c7c7] w-full'></div>
-                      </div>
+                      {data?.data?.map((order:any) => {
+                            return (
+                              <div className='mb-7 '>
+                                <div className='flex justify-between  mb-5'>
+                                  <div>
+                                    <h4 className='font-semibold text-lg'>{order.code}</h4>
+                                    <p className='text-sm text-[#0000008e] '>{order.shippingMethod}</p>
+                                  </div>
+                                  <Button variant={order.status == 'Pending' ? 'statusPending' : order.status == 'inProgress' ? 'statusInProgress' : 'statusCompleted'}>
+                                    {order.status}
+                                  </Button>
+                                </div>
+                                <div className='h-[1px] bg-[#c7c7c7] w-full'></div>
+                              </div>
+                        )
+                        })}
                     </div>
                   </div>
   )

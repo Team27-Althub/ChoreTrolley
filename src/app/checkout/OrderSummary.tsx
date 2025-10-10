@@ -37,14 +37,16 @@ const OrderSummary = ({ shipping = 0, method }: OrderSummaryProps) => {
     const [errorMsg, setErrorMsg] = useState('');
 
     console.log(items.map((item)=> {
-          return item
+          return item.id
         }))
   
     const handleCheckout = async () => {
       const orderData = {
         addressId: 45,
         address: "123 Palm Street, Lagos",
-        groceries: [20],
+        groceries: [items?.map((itemId) => {
+          return (itemId.id)
+        })],
         services: [],
         shippingMethod: method,
         paymentMethod: "Card",
