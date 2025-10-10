@@ -1,7 +1,7 @@
 import React from 'react'
 import MenuButton from '../Minor/MenuButton'
 import Link from 'next/link'
-import logo from '../../../../public/Frame 38.png'
+import logo from '../../../../public/Frame 38.png'  
 import Image from 'next/image'
 // import { ShoppingCartIcon } from 'lucide-react'
 

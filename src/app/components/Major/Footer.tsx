@@ -15,7 +15,7 @@ const Footer = () => {
         <Github size={20} color='#fff' />
       </div>
       <div className='bg-[#fff] mt-10 h-0.5'></div>
-      <div className='flex justify-between mt-5 text-[#F3F4F6]'>
+      <div className='flex justify-between mt-5 text-[#F3F4F6] text-sm md:text-lg'>
         <div>© 2025 ChoreTrolly. All rights reserved.</div>
         <div className='flex gap-3 underline'>
             <div>Privacy Policy</div>

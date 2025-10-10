@@ -20,8 +20,8 @@ const CartPage = () => {
   return (
     <div className="bg-[#F5F5F4] h-full min-h-screen w-full overflow-y-auto relative">
       <LoggedInNavbar />
-      <div className="py-10 px-5 md:px-10 lg:px-20">
-        <h2 className="text-xl font-semibold mb-8">Your Cart</h2>
+      <div className="py-10 md:px-10 lg:px-20">
+        <h2 className="text-xl font-semibold mb-8 px-2">Your Cart</h2>
         {isEmpty ? (
           <div className="flex flex-col items-center justify-center  w-full h-[50vh]">
             <p className="text-xl text-gray-500">Your cart is empty.</p>
@@ -44,10 +44,10 @@ const CartPage = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-[60%_40%] gap-5">
             {/* Cart Items Section */}
-            <div className="bg-white rounded-xl shadow-md py-5 px-5">
+            <div className="bg-white rounded-xl shadow-md py-5 md:px-5">
               <div className="flex justify-between px-3 md:px-10">
                 <h3 className="text-xl font-semibold">Item (s)</h3>
-                <h3 className="text-xl font-semibold">Price</h3>
+                <h3 className="text-xl font-semibold hidden md:block">Price</h3>
               </div>
               <div className="w-full h-[1px] bg-[#cecccc] my-3"></div>
               <div className="px-3 md:px-5">
@@ -67,6 +67,9 @@ const CartPage = () => {
                       {/* {console.log(item?.imageUrl)} */}
                       <div className="flex-grow">
                         <h3 className="text-lg font-semibold">{item?.name}</h3>
+                        <p className=" font-normal w-20 md:hidden">
+                          ₦ {item?.itemTotal}
+                        </p>
                         <p className="text-sm text-[#929292]">
                           {item?.category}
                         </p>
@@ -118,9 +121,9 @@ const CartPage = () => {
                     </div>
 
                     {/* Quantity and price controls */}
-                    <h3 className="text-lg font-semibold w-20 text-right">
+                    <h4 className="text-lg font-semibold w-20 md:block hidden text-right">
                       ₦ {item?.itemTotal}
-                    </h3>
+                    </h4>
                   </div>
                 ))}
               </div>

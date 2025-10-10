@@ -165,7 +165,7 @@ const Scheduling = () => {
         {/* Divider */}
         <div className="border-b border-gray-300 w-full my-2"></div>
         {/* Cards */}
-        <div className=" w-full px-7 py-2">
+        <div className=" w-full px-3  py-2">
           <div className="grid grid-rows-3 grid-cols-2 gap-3">
             {/* Cards */}
             {portfolioCards.map((item) => (

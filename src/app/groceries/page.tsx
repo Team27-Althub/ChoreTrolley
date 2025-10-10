@@ -57,7 +57,7 @@ const GroceriesPage = () => {
   })
 
   return (
-    <div className='bg-[#F5F5F4] rounded-lg relative overflow-x-hidden'>
+    <div className='bg-[#F5F5F4] min-h-[100vh] rounded-lg relative overflow-x-hidden'>
       <LoggedInNavbar />
 
       {/* Success message modal */}
@@ -120,7 +120,7 @@ const GroceriesPage = () => {
 
                 return (
                   <div
-                    className='bg-[#fff] rounded-xl w-full h-80 flex flex-col gap-1 shadow-xl'
+                    className='bg-[#fff] rounded-xl w-full h-80 flex flex-col shadow-xl'
                     key={service.id}
                   >
                     <img
@@ -128,61 +128,65 @@ const GroceriesPage = () => {
                       alt={service.name}
                       className='h-[45%] rounded-t-2xl object-cover'
                     />
-                    <div className='px-2 mt-4'>
-                      <h2 className='text-xl font-normal text-left'>
+                    <div className='px-2 mt-4 flex flex-col justify-between pb-2 h-[55%]'>
+                      <div>
+                        <h2 className=' text-sm md:text-lg font-semibold  leading-tight text-left'>
                         {service.name}
-                      </h2>
-                      <p className='text-sm text-gray-500'>
-                        {service.category?.name}
-                      </p>
-                      <div className='flex gap-3'>
-                        <RenderStars count={parseFloat(service.rating)} />
-                        <p className='text-sm'>{service.rating}</p>
+                        </h2>
+                        <p className='text-sm text-gray-500'>
+                          {service.category?.name}
+                        </p>
+                        <div className='flex gap-3'>
+                          <RenderStars count={parseFloat(service.rating)} />
+                          <p className='text-sm'>{service.rating}</p>
+                        </div>
+                        <h3 className='font-semibold text-sm md:text-[16px]'>
+                          ₦{service.price}
+                        </h3>
                       </div>
-                      <h3 className='font-semibold text-xl mt-2'>
-                        ₦{service.price}
-                      </h3>
 
-                      <Button
+                     <div>
+                       <Button
                         onClick={addingItems}
                         variant='dashboardDefault'
                         className={`text-lg w-full mt-2 text-white rounded-md bg-[#013328] hover:cursor-pointer ${
                           quantity > 0 ? 'hidden' : ''
                         }`}
-                      >
-                        Add to cart
-                      </Button>
+                        >
+                          Add to cart
+                        </Button>
 
-                      <div
-                        className={`grid grid-cols-3 gap-2 ${
-                          quantity === 0 ? 'hidden' : ''
-                        }`}
-                      >
-                        <Button
-                          onClick={() =>
-                            updateItemQuantity(
-                              service.id,
-                              Math.max(0, quantity - 1)
-                            )
-                          }
-                          variant='dashboardDefault'
-                          className='text-lg w-full mt-2 text-white rounded-md bg-[#013328] hover:cursor-pointer'
+                        <div
+                          className={`grid grid-cols-3 gap-2 ${
+                            quantity === 0 ? 'hidden' : ''
+                          }`}
                         >
-                          -
-                        </Button>
-                        <div className='flex items-center justify-center'>
-                          {quantity}
+                          <Button
+                            onClick={() =>
+                              updateItemQuantity(
+                                service.id,
+                                Math.max(0, quantity - 1)
+                              )
+                            }
+                            variant='dashboardDefault'
+                            className='text-lg w-full mt-2 text-white rounded-md bg-[#013328] hover:cursor-pointer'
+                          >
+                            -
+                          </Button>
+                          <div className='flex items-center justify-center'>
+                            {quantity}
+                          </div>
+                          <Button
+                            onClick={() =>
+                              updateItemQuantity(service.id, quantity + 1)
+                            }
+                            variant='dashboardDefault'
+                            className='text-lg w-full mt-2 text-white rounded-md bg-[#013328] hover:cursor-pointer'
+                          >
+                            +
+                          </Button>
                         </div>
-                        <Button
-                          onClick={() =>
-                            updateItemQuantity(service.id, quantity + 1)
-                          }
-                          variant='dashboardDefault'
-                          className='text-lg w-full mt-2 text-white rounded-md bg-[#013328] hover:cursor-pointer'
-                        >
-                          +
-                        </Button>
-                      </div>
+                     </div>
                     </div>
                   </div>
                 )

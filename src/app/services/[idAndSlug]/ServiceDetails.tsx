@@ -33,7 +33,7 @@ const ServiceDetails: React.FC<ServiceDetailsProps> = ({ Details }) => {
           {/* image */}
           <div className="w-27 h-27 rounded-full overflow-hidden">
             <img
-              src={Details.imageUrl}
+              src={`https://choretrolley-apiservice-production.up.railway.app${Details.imageUrl}`}
               alt={Details.title}
               className="w-full h-full object-cover"
             />

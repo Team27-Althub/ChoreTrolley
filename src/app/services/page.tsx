@@ -11,7 +11,6 @@ import ServiceFilter from './ServiceFilter'
 
 const ServicePage = () => {
     const {data: serviceData, error, isLoading} = useFetchResourceQuery('/services')
-    const {data: serviceCategory, error:category, isLoading:loading} = useFetchResourceQuery('/services/categories')
 
     const [isFilterOpen, setIsFilterOpen] = useState(false)
 
@@ -19,12 +18,51 @@ const ServicePage = () => {
       setIsFilterOpen(!isFilterOpen)
     }
 
+    const [filters, setFilters] = useState({
+      search: '',
+      categories: [] as string[],
+      rating: '',
+      priceRange: [0, 500000] as [number, number],
+      serviceTypes: [] as string[],
+    })
+
+    const filteredServices = serviceData?.data?.filter((service: any) => {
+  // Filter by search
+  if (filters.search && !service.title.toLowerCase().includes(filters.search.toLowerCase())) {
+    return false
+  }
+
+  // Filter by category
+  if (filters.categories.length > 0 && !filters.categories.includes(service.category.name)) {
+    return false
+  }
+
+  // Filter by rating
+  if (filters.rating && service.serviceProvider.rating < Number(filters.rating)) {
+    return false
+  }
+
+  // Filter by price
+  if (service.price > filters.priceRange[1]) {
+    return false
+  }
+
+  // Filter by service type
+  if (filters.serviceTypes.length > 0 && !filters.serviceTypes.includes(service.type)) {
+    return false
+  }
+
+  return true
+})
+
+
+
     return (
-      <div className='bg-[#F5F5F4] rounded-lg relative overflow-x-hidden'>
+      <div className='bg-[#F5F5F4] min-h-[100vh] rounded-lg relative overflow-x-hidden'>
         <LoggedInNavbar/>
         
         {/* Mobile Filter Button */}
-        <div className='flex items-center justify-between p-4 md:hidden'>
+        <div className='flex items-center justify-between p-4 md:hidden '>
           <h2 className='font-bold text-xl'>All services</h2>
           <Button 
             variant='secondary' 
@@ -42,37 +80,38 @@ const ServicePage = () => {
       <div className='grid grid-cols-1 md:grid-cols-[30%_70%] gap-4 my-5 mx-3 md:mx-10 lg:mx-20'>
         {/* Desktop Filter Section */}
         <div className='bg-white hidden md:block'>
-          <ServiceFilter/>
+          <ServiceFilter filters={filters} setFilters={setFilters} />
+
         </div>
         
         {/* Services List */}
         <div className=''>
           <h2 className='mb-10 font-bold text-xl hidden md:block'>All services</h2>
-          <div className='grid grid-cols-2 lg:grid-cols-3 gap-4 px-5'>
+          <div className='grid grid-cols-2 lg:grid-cols-3 gap-4 '>
             {
                isLoading || error ? (
 
                 Array.from({ length: 6 }).map((_, i) => <GroceryCardSkeleton key={i} />)
                 ) : (
-              serviceData?.data?.map((service:any) => (
+              filteredServices?.map((service:any) => (
                 <Link 
                key={service.id}
                // Use both id and slug in the URL
               href={`/services/${service.id}-${service.title}`} 
-                className="bg-white rounded-xl w-full flex flex-col gap-1 shadow-xl"
+                className="bg-white rounded-xl w-full flex flex-col gap-1 shadow-xl h-98"
                
               >
                   <img src={`https://choretrolley-apiservice-production.up.railway.app${service.imageUrl}`} alt="" className='h-[45%] rounded-t-2xl w-full object-cover' />
                   <div className='px-2 mt-4'>
-                    <h2 className='md:text-xl font-semibold text-lg  text-left'>{service.title}</h2>
+                    <h2 className='lg:text-xl font-semibold text-sm md:text-lg  text-left'>{service.title}</h2>
                     <p className='text-sm text-gray-500'>{service.category.name}</p>
                     <div className='flex gap-3'>
                       <RenderStars count={service?.serviceProvider?.rating}/>
                       <p className='text-sm'>{service?.serviceProvider?.rating}.0</p> 
                     </div>
-                    <h3 className='font-semibold md:text-xl text-lg'>₦{service.price}/hr</h3>
+                    <h3 className='font-semibold lg:text-xl text-sm md:text-lg '>₦{service.price}/hr</h3>
                   <p className='text-[12px] hidden md:block text-gray-500'>{service.description.slice(0,150)}..</p>
-                  <p className='text-[12px] block md:hidden text-gray-500'>{service.description.slice(0,90)}....</p>
+                  <p className='text-[12px] block md:hidden text-gray-500'>{service.description.slice(0,70)}....</p>
                   </div>
                 </Link>
               )))}
@@ -93,7 +132,7 @@ const ServicePage = () => {
           </Button>
         </div>
         <div className='px-4 py-10 overflow-y-auto h-[100vh]'>
-          <ServiceFilter/>
+          <ServiceFilter filters={filters} setFilters={setFilters} />
         </div>
       </div>
       

@@ -25,6 +25,7 @@
     "react-dom": "^18.2.0",
     "react-paystack": "^6.0.0",
     "react-redux": "^9.2.0",
+    "react-toastify": "^11.0.5",
     "react-use-cart": "^1.14.0",
     "tailwind-merge": "^3.3.1"
   },

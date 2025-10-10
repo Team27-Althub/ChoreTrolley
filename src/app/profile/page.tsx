@@ -21,6 +21,9 @@ import Inbox from "./Inbox";
 import ChangePassword from "./ChangePassword";
 import PolicyAndTerms from "./Policy&Terms"; // Assuming this is the correct component name
 import ConfirmModal from "./ConfirmModal";
+import { useLogoutMutation } from "@/redux/api/authApi";
+import { useRouter } from "next/navigation";
+import { useToast } from "../components/Minor/ReactToast";
 
 const tabs = [
   { label: "Personal Info", icon: <User size={18} /> },
@@ -37,6 +40,10 @@ const Profile: React.FC = () => {
   const [activeTab, setActiveTab] = useState("Personal Info");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [modalType, setModalType] = useState<"delete" | "logout" | null>(null);
+  const [logoutUser, {isLoading:logoutLoading}] = useLogoutMutation()
+  const router = useRouter()
+
+  const {toast} = useToast()
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -47,10 +54,33 @@ const Profile: React.FC = () => {
     setIsDropdownOpen(false); // Close dropdown when a tab is selected
   };
   const handleDelete = () => {
+     toast({
+        title: "Coming Soon",
+        description: 'This feature is not yet available',
+        type: "default",
+      });
     console.log("user deleted");
     setModalType(null);
   };
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try{
+      await logoutUser({}).unwrap()
+      toast({
+        title: "Logout successful",
+        description: 'Bye for now',
+        type: "success",
+      });
+      sessionStorage.clear();
+      router.push('/login') 
+    } catch(err) {
+      toast({
+        title: "Logout successful",
+        description: 'Bye for now',
+        type: "success",
+      });
+      sessionStorage.clear();
+      router.push('/login') 
+    }
     console.log("user logged out");
     setModalType(null);
   };

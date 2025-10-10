@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 interface ShippingOption {
   id: string;
@@ -14,11 +14,14 @@ interface ShippingMethodProps {
 const ShippingMethod: React.FC<ShippingMethodProps> = ({ onSelect }) => {
   const [selectedShipping, setSelectedShipping] = useState<string>('Standard');
 
-  const shippingOptions: ShippingOption[] = [
-    { id: 'economy', name: 'Economy', price: 1000 },
-    { id: 'standard', name: 'Standard', price: 2500 },
-    { id: 'express', name: 'Express', price: 5000 },
-  ];
+  const shippingOptions: ShippingOption[] = useMemo(
+    () => [
+      { id: 'economy', name: 'Economy', price: 1000 },
+      { id: 'standard', name: 'Standard', price: 2500 },
+      { id: 'express', name: 'Express', price: 5000 },
+    ],
+    []
+  );
 
   // Notify parent anytime the user selects a new option
   useEffect(() => {
@@ -28,7 +31,7 @@ const ShippingMethod: React.FC<ShippingMethodProps> = ({ onSelect }) => {
     if (selectedOption) {
       onSelect(selectedOption.name, selectedOption.price);
     }
-  }, [selectedShipping]);
+  }, [onSelect, selectedShipping, shippingOptions]);
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm">

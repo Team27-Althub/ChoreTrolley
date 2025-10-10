@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import { MapPin, Phone, ChevronDown, Star } from "lucide-react";
 import nigeriaCities from "./cityData.js";
 import { useCreateResourceMutation, useFetchResourceQuery } from "@/redux/api/crudApi";
-import RenderStars from "../services/Stars";
+import RenderStars from "../services/Stars"
+import { useToast } from "../components/Minor/ReactToast";
 
 const PersonalInfoForm = () => {
 
@@ -17,6 +18,7 @@ const PersonalInfoForm = () => {
   const [profilePreview, setProfilePreview] = useState(""); // for preview
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
+  const { toast } = useToast()
 
   // Initialize with session storage values
   const [first, setFirst] = useState('');
@@ -62,7 +64,7 @@ const PersonalInfoForm = () => {
     city: selectedCity,
     phone,
     // userId: ID
-    profileImageUrl: "https://example.com/profile.jpg" // send URL string
+    // profileImageUrl: profileImage // send URL string
   };
 
 
@@ -72,8 +74,18 @@ const PersonalInfoForm = () => {
         url: "/profile",
         data: body,
       }).unwrap();
+      toast({
+        title: "Success",
+        description: 'Profile updated succesfully',
+        type: "success",
+      });
     } catch (err) {
       console.error("Update failed:", err);
+      toast({
+        title: "Error",
+        description: 'Something went wrong, Try again.',
+        type: "error",
+      });
     }
   };
 
@@ -94,7 +106,8 @@ const PersonalInfoForm = () => {
             alt="Profile"
             className="w-16 h-16 rounded-full object-cover cursor-pointer"
             onClick={() => setIsModalOpen(true)}
-          /> */}
+          />  */}
+
 
         <div>
           <h2 className="text-xl font-semibold">

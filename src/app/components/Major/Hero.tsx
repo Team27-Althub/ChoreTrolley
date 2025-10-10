@@ -4,6 +4,9 @@ import heroBG from '../../../../public/image.png'
 import Image from 'next/image';
 
 const Hero = () => {
+
+    
+
   return (
     <div
         className='bg-gradient-to-r from-[#013328] to-[#014937] '
@@ -15,33 +18,33 @@ const Hero = () => {
         //       }}
     >
                 {/* Filter/Search Bar */}
-                <div className='flex justify-center'>
+                <div className='flex justify-center opacity-0'>
                 <div className=" lg:w-[60%] w-full lg:mx-10  bg-gradient-to-r from-[#004136] to-[#0a6150] py-4 mb-10 rounded-md flex  items-center ">
-                {/* Category */}
+
                 <div className="flex items-center justify-center gap-2 text-center py-2 text-white w-full lg:w-[20%] border-r border-white">
                     <ChevronDown size={12} />
                     <span className=" text-[12px] gap-1 flex"><span className='hidden md:block'>Select</span> Category</span>
                 </div>
 
-                {/* Location */}
+
                 <div className=" items-center gap-2 text-center  py-2 flex justify-center text-white w-full lg:w-[20%] border-r border-white">
                     <MapPin size={12} />
                     <span className=" text-[12px] gap-1 flex"> <span className='hidden md:block'>Choose</span> Location</span>
                 </div>
 
-                {/* Date */}
+
                 <div className="flex items-center gap-2  py-2 justify-center text-white w-full lg:w-[20%] border-r border-white">
                     <Calendar size={12} />
                     <span className=" text-[12px] gap-1 flex"><span className='hidden md:block'>Select</span> Date</span>
                 </div>
 
-                {/* Time */}
+
                 <div className="flex items-center gap-2 py-2 justify-center text-white w-full lg:w-[20%] border-r border-white">
                     <Clock size={12} />
                     <span className=" text-[12px] gap-1 flex"><span className='hidden md:block'>Choose</span> Time</span>
                 </div>
 
-                {/* Search Button */}
+
                 <div className="w-full lg:w-[20%] flex justify-center">
                     <button className="bg-white text-black font-medium  text-sm px-3 md:px-5 py-1 rounded-md hover:bg-gray-200 transition">
                     Search

@@ -1,16 +1,23 @@
 'use client'
 import React from 'react'
+import { useFetchResourceQuery } from '@/redux/api/crudApi'
 
-const GroceryFilter = ({ filters, setFilters }:any) => {
-  const handleCategoryChange = (category:any) => {
-    setFilters((prev:any) => ({
+const GroceryFilter = ({ filters, setFilters }: any) => {
+  const {
+    data: serviceCategory,
+    error: categoryError,
+    isLoading: loading,
+  } = useFetchResourceQuery('/category/grocery')
+
+  const handleCategoryChange = (selectedCategory: string) => {
+    setFilters((prev: any) => ({
       ...prev,
-      category,
+      category: selectedCategory,
     }))
   }
 
-  const handleRatingChange = (rating:any) => {
-    setFilters((prev:any) => ({
+  const handleRatingChange = (rating: number) => {
+    setFilters((prev: any) => ({
       ...prev,
       rating,
     }))
@@ -25,7 +32,7 @@ const GroceryFilter = ({ filters, setFilters }:any) => {
           type="text"
           value={filters.search}
           onChange={(e) =>
-            setFilters((prev:any) => ({ ...prev, search: e.target.value }))
+            setFilters((prev: any) => ({ ...prev, search: e.target.value }))
           }
           placeholder="Search groceries..."
           className="w-full border rounded-md px-3 py-2 outline-none focus:ring-2 focus:ring-[#013328]"
@@ -36,21 +43,32 @@ const GroceryFilter = ({ filters, setFilters }:any) => {
       <div>
         <h2 className="font-bold mb-2 text-lg">Category</h2>
         <div className="space-y-2">
-          {["All", "Fruits", "Vegetables", "Snacks", "Drinks", "Meat"].map(
-            (type) => (
-              <label key={type} className="block cursor-pointer">
-                <input
-                  type="radio"
-                  name="category"
-                  value={type}
-                  checked={filters.category === type}
-                  onChange={() => handleCategoryChange(type)}
-                  className="mr-2 accent-[#013328]"
-                />
-                {type}
-              </label>
-            )
-          )}
+          {/* “All” Checkbox */}
+          <label className="block cursor-pointer">
+            <input
+              type="checkbox"
+              checked={filters.category === 'All'}
+              onChange={() => handleCategoryChange('All')}
+              className="mr-2 accent-[#013328]"
+            />
+            All
+          </label>
+
+          {/* Dynamic Categories */}
+          {loading && <p className="text-sm text-gray-500">Loading categories...</p>}
+          {categoryError && <p className="text-sm text-red-500">Error loading categories</p>}
+
+          {serviceCategory?.data?.map((cat: any) => (
+            <label key={cat.id} className="block cursor-pointer capitalize">
+              <input
+                type="checkbox"
+                checked={filters.category === cat.name}
+                onChange={() => handleCategoryChange(cat.name)}
+                className="mr-2 accent-[#013328]"
+              />
+              {cat.name}
+            </label>
+          ))}
         </div>
       </div>
 
@@ -64,7 +82,7 @@ const GroceryFilter = ({ filters, setFilters }:any) => {
           step="5"
           value={filters.price}
           onChange={(e) =>
-            setFilters((prev:any) => ({ ...prev, price: +e.target.value }))
+            setFilters((prev: any) => ({ ...prev, price: +e.target.value }))
           }
           className="w-full accent-[#013328]"
         />
@@ -78,9 +96,7 @@ const GroceryFilter = ({ filters, setFilters }:any) => {
           {[5, 4, 3, 2, 1].map((rating) => (
             <label key={rating} className="block cursor-pointer">
               <input
-                type="radio"
-                name="rating"
-                value={rating}
+                type="checkbox"
                 checked={filters.rating === rating}
                 onChange={() => handleRatingChange(rating)}
                 className="mr-2 accent-[#013328]"
@@ -95,10 +111,10 @@ const GroceryFilter = ({ filters, setFilters }:any) => {
       <button
         onClick={() =>
           setFilters({
-            category: "All",
+            category: 'All',
             price: 500,
             rating: 1,
-            search: "",
+            search: '',
           })
         }
         className="w-full bg-gray-200 hover:bg-[#013328] hover:text-white text-gray-700 font-medium py-2 rounded-md transition-colors"

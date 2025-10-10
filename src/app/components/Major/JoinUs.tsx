@@ -1,5 +1,6 @@
 import React from 'react';
 import heroImage from '../../../../public/personWaving.svg';
+import Link from 'next/link';
 import Image from 'next/image'; // Make sure to import your image properly
 
 const JoinUs = () => {
@@ -15,12 +16,16 @@ const JoinUs = () => {
             Join ChoreTrolly today and reclaim your time.
           </p>
           <div className="flex gap-4">
-            <button className="bg-white  text-gray-900 font-semibold lg:px-5 px-2 py-3 rounded hover:bg-gray-200 transition">
-              Start Shopping Groceries
-            </button>
-            <button className="border border-white px-5 py-3 rounded hover:bg-white hover:text-gray-900 transition">
-              Find Household Services
-            </button>
+            <Link href={'/signUp'}>
+              <button className="bg-white hover:cursor-pointer  text-gray-900 font-semibold lg:px-5 px-2 py-3 rounded hover:bg-gray-200 transition">
+                Start Shopping Groceries
+              </button>
+            </Link>
+            <Link href={'/signUp'}>
+              <button className="border hover:cursor-pointer border-white px-5 py-3 rounded hover:bg-white hover:text-gray-900 transition">
+                Find Household Services
+              </button>
+            </Link>
           </div>
         </div>
 
