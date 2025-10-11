@@ -241,7 +241,7 @@ const Scheduling = () => {
           </div>
 
 
-            <button onClick={handleCheckout} className="w-full h-15 mt-3 rounded-lg bg-[#013328] text-white font-medium text-base">
+            <button onClick={handleCheckout} className="w-full h-15 mt-3 hover:cursor-pointer rounded-lg bg-[#013328] text-white font-medium text-base">
               Book Now
             </button>
         </div>

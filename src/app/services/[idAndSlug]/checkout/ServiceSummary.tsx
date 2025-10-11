@@ -34,7 +34,7 @@ const ServiceSummary = ({ shipping = 0, method }: OrderSummaryProps) => {
     const {data: serviceData, isLoading: dataLoading} = useFetchResourceQuery(`/services/${id}`)
     const [errorMsg, setErrorMsg] = useState('');
 
-      const sumTotal = serviceData?.data?.price + 1000 + 100
+      const sumTotal = serviceData?.data?.price + 0 + 100
 
   
     const handleCheckout = async () => {
@@ -43,8 +43,8 @@ const ServiceSummary = ({ shipping = 0, method }: OrderSummaryProps) => {
         addressId: 45,
         address: "123 Palm Street, Lagos",
         groceries: null,
-        services: [id],
-        bookingId,
+        services: [id?.toString()],
+        bookingId: bookingId?.toString(),
         shippingMethod: 'Standard',
         contractType: "One-Time",
         paymentMethod: "Card",

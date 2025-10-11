@@ -77,10 +77,10 @@ const PaymentSuccessPage = () => {
           {/* Right Section */}
           <div>
             <div className="bg-white p-6 rounded-lg shadow-sm w-full">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6">Order Summary</h2>
+              {/* <h2 className="text-xl font-semibold text-gray-900 mb-6">Order Summary</h2> */}
 
               <div className="bg-[#fff] rounded-xl py-5 flex flex-col gap-2">
-                <div className="flex justify-between items-center">
+                {/* <div className="flex justify-between items-center">
                   <h3 className="text-sm">SubTotal</h3>
                   <h3 className="text-xl font-semibold">₦ {cartTotal}</h3>
                 </div>
@@ -95,14 +95,14 @@ const PaymentSuccessPage = () => {
                 <div className="flex justify-between">
                   <h3 className="text-xl font-semibold items-center">Total</h3>
                   <h3 className="text-xl font-semibold">₦ {cartTotal + 300}</h3>
-                </div>
+                </div> */}
 
-                <Link href="/booking_confirmation">
+                <Link href="/dashboard">
                   <Button
                     variant="dashboardDefault"
                     className="text-lg w-full mt-10 text-white rounded-md bg-[#013328] hover:cursor-pointer"
                   >
-                    Track My Order
+                    Continue shopping
                   </Button>
                 </Link>
               </div>
