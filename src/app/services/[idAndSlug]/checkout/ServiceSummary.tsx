@@ -38,12 +38,15 @@ const ServiceSummary = ({ shipping = 0, method }: OrderSummaryProps) => {
 
   
     const handleCheckout = async () => {
+      const bookingId = sessionStorage.getItem('bookingId')
       const orderData = {
         addressId: 45,
         address: "123 Palm Street, Lagos",
-        groceries: [],
+        groceries: null,
         services: [id],
+        bookingId,
         shippingMethod: 'Standard',
+        contractType: "One-Time",
         paymentMethod: "Card",
         subtotal: serviceData?.data?.price,
         tax: 100,
