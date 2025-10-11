@@ -70,11 +70,11 @@ const ServiceDetails: React.FC<ServiceDetailsProps> = ({ Details }) => {
             )}
           </div>
           {/* Button */}
-          <div className="mt-6">
+          {/* <div className="mt-6">
             <button className="border border-[#013328] text-[#013328] px-6 py-3 rounded-lg ">
               Proceed to Booking
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

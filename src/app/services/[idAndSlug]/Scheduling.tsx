@@ -136,6 +136,7 @@ const Scheduling = () => {
         const time = sessionStorage.getItem('selectedTimeSlot')
         const name = `${sessionStorage.getItem('firstName')} ${sessionStorage.getItem('lastName')}`
 
+        console.log(id)
       const orderData = {
         customerName: name,
         customerEmail: userEmail,
