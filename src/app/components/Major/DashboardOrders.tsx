@@ -14,7 +14,10 @@ const DashboardOrders = () => {
                     </div>
                     <div className='h-[1px] bg-[#7c7c7c] w-full'></div>
                     <div className='mt-5 px-4'>
-                      {data?.data?.map((order:any) => {
+                      {
+                        data?.data?.length < 1 ? (<div className='font-semibold text-lg text-[#0000008e]'>You have no ongoing order</div>) 
+                        :
+                      (data?.data?.map((order:any) => {
                             return (
                               <div className='mb-7 '>
                                 <div className='flex justify-between  mb-5'>
@@ -29,7 +32,7 @@ const DashboardOrders = () => {
                                 <div className='h-[1px] bg-[#c7c7c7] w-full'></div>
                               </div>
                         )
-                        })}
+                        }))}
                     </div>
                   </div>
   )

@@ -146,13 +146,14 @@ const Scheduling = () => {
         };
   
       try {
-        const result = await createServiceOrder(orderData).unwrap(); // ✅ unwrap to access actual data
-        router.push(`${url}/checkout`)
+        const result = await createServiceOrder(orderData).unwrap();
+        sessionStorage.setItem('bookingId', result?.data?.id)
         toast({
         title: "Successful",
         description: `Service booked successfully`,
         type: "success",
       });
+        router.push(`${url}/checkout`)
         
       } catch (error:any) {
         console.error("Checkout error:", error);
@@ -238,7 +239,7 @@ const Scheduling = () => {
               </strong>
             </p>
           </div>
-          
+
 
             <button onClick={handleCheckout} className="w-full h-15 mt-3 rounded-lg bg-[#013328] text-white font-medium text-base">
               Book Now
