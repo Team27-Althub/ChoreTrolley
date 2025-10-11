@@ -238,6 +238,7 @@ const Scheduling = () => {
               </strong>
             </p>
           </div>
+          
 
             <button onClick={handleCheckout} className="w-full h-15 mt-3 rounded-lg bg-[#013328] text-white font-medium text-base">
               Book Now
