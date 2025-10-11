@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import { useFetchResourceQuery } from '@/redux/api/crudApi'
+import Link from 'next/link'
 
 const DashboardOrders = () => {
 
@@ -10,7 +11,9 @@ const DashboardOrders = () => {
                 <div className='bg-white rounded-md py-3 mb-5 shadow-xl'>
                     <div className='flex justify-between px-4 py-3'>
                       <h2 className='text-2xl font-semibold'>Ongoing Orders</h2>
-                      <p className='text-blue-700'>See all</p>
+                      <Link href={'/profile'}>
+                        <p className='text-blue-700'>See all</p>
+                      </Link>
                     </div>
                     <div className='h-[1px] bg-[#7c7c7c] w-full'></div>
                     <div className='mt-5 px-4'>
