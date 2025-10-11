@@ -44,9 +44,9 @@ const OrderSummary = ({ shipping = 0, method }: OrderSummaryProps) => {
       const orderData = {
         addressId: 45,
         address: "123 Palm Street, Lagos",
-        groceries: [items?.map((itemId) => {
+        groceries: items?.map((itemId) => {
           return (itemId.id)
-        })],
+        }),
         services: [],
         shippingMethod: method,
         paymentMethod: "Card",

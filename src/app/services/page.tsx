@@ -95,15 +95,17 @@ const ServicePage = () => {
                 ) : (
               filteredServices?.map((service:any) => {
 
-                sessionStorage.setItem('url', `/services/${service.id}-${service.title}`)
-                sessionStorage.setItem('id', service.id)
-
+                
                 return (
-              <Link 
-               key={service.id}
-               // Use both id and slug in the URL
-              href={`/services/${service.id}-${service.title}`} 
-                className="bg-white rounded-xl w-full flex flex-col gap-1 shadow-xl h-98"
+                  <Link 
+                  key={service.id}
+                  // Use both id and slug in the URL
+                  href={`/services/${service.id}-${service.title}`} 
+                  className="bg-white rounded-xl w-full flex flex-col gap-1 shadow-xl h-98"
+                  onClick={()=> {
+                  sessionStorage.setItem('url', `/services/${service.id}-${service.title}`)
+                  sessionStorage.setItem('id', service.id)
+                }}
                
               >
                   <img src={`https://choretrolley-apiservice-production.up.railway.app${service.imageUrl}`} alt="" className='h-[45%] rounded-t-2xl w-full object-cover' />
