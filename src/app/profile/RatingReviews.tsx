@@ -69,9 +69,9 @@ const RatingsReviews = () => {
 
   return (
     <div className="px-6 py-4">
-      <h2 className="text-2xl font-bold mb-6">Ratings & Reviews</h2>
+      <h2 className="text-2xl font-bold mb-6">Feature Coming Soon...</h2>
 
-      {ratingsData.map((item) => (
+      {/* {ratingsData.map((item) => (
         <div key={item.id} className="border rounded-md mb-6 p-4 ">
           <div className="flex flex-col md:flex-row gap-4">
             <img
@@ -99,7 +99,7 @@ const RatingsReviews = () => {
             </button>
           </div>
         </div>
-      ))}
+      ))} */}
     </div>
   );
 };

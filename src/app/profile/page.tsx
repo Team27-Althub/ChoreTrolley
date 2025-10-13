@@ -28,8 +28,8 @@ import { useToast } from "../components/Minor/ReactToast";
 const tabs = [
   { label: "Personal Info", icon: <User size={18} /> },
   { label: "Your Orders", icon: <Package size={18} /> },
-  { label: "Reviews", icon: <Star size={18} />, extra: "(2 waiting reviews)" },
-  { label: "Inbox", icon: <Mail size={18} /> },
+  { label: "Reviews", icon: <Star size={18} />, extra: "(2 waiting reviews)" },  
+  // { label: "Inbox", icon: <Mail size={18} /> },
   { label: "Privacy Policy & Terms of Use", icon: <ScrollText size={18} /> },
   { label: "Change Password", icon: <KeyRound size={18} /> },
   { label: "Account Settings", icon: <Settings size={18} /> },
@@ -71,7 +71,7 @@ const Profile: React.FC = () => {
         type: "success",
       });
       sessionStorage.clear();
-      router.push('/login') 
+      router.push('/') 
     } catch(err) {
       toast({
         title: "Logout successful",
