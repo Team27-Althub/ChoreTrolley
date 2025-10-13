@@ -6,12 +6,16 @@ import lemon from '../../../../public/lemon.svg'
 import cake from '../../../../public/cake.svg'
 import meat from '../../../../public/meat.svg'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const GroceriesCategories = () => {
   return (
             <div className='bg-white  rounded-md py-3 shadow-xl'>
                 <div className='flex justify-between px-7 pb-3'>
                   <h2 className='text-2xl font-semibold'>Available Groceries categories</h2>
+                   <Link href={'/groceries'} className='hover:cursor-pointer'>
+                      <p className="text-blue-700 md:text-lg text-sm">See all</p>
+                    </Link>
                 </div>
                 <div className='h-[1px] bg-[#7c7c7c] w-full'></div>
                 <div className='my-5 px-7 gap-5 grid grid-cols-2 md:grid-cols-3'>
