@@ -18,6 +18,8 @@ import JoinUs from "./components/Major/JoinUs";
 import Hero from "./components/Major/Hero";
 import LoggedInNavbar from "./components/Major/LoggedInNavbar";
 import RenderStars from "./services/Stars";
+import Navbar2 from "./components/Major/Navbar2";
+import LandingPage from "./components/Major/LandingInspo";
 
 export default function Home() {
 
@@ -91,7 +93,7 @@ export default function Home() {
       <Hero/>
       
       <div className="bg-[#fff] py-10 px-5 md:px-20"id="howItWorks">
-        <h2 className="text-center text-xl font-bold ">How ChoreTrolly Works</h2>
+        <h2 className="text-center text-xl font-bold ">How we operate</h2>
         <p className="text-center text-sm text-[#8a8989] mt-2">Experience the ultimate convenience in three simple steps.</p>
         <div className="grid md:grid-cols-3 grid-cols-1 mt-10 gap-5">
           <div className="flex gap-3 items-center">
@@ -121,8 +123,8 @@ export default function Home() {
 
 
       <div className="bg-[#F5F5F4] lg:px-14 px-9  pb-20 pt-25" id="whyUs">
-        <h2 className="text-center text-3xl font-bold  ">Why Choose ChoreTrolly?</h2>
-        <p className="text-center text-xl text-[#8a8989] my-2 ">ChoreTrolly is not just any App, we’re your partner in managing household needs.</p> 
+        <h2 className="text-center text-3xl font-bold  ">Why Choose Us?</h2>
+        <p className="text-center text-xl text-[#8a8989] my-2 ">We is not just any App, we’re your partner in managing household needs.</p> 
         <div className="grid md:grid-cols-3 grid-cols-1 gap-5 mt-15">
           <WhyUs1 
             first="Verified Professionals" 
@@ -165,7 +167,7 @@ export default function Home() {
 
       <div className="bg-[#F5F5F4]  py-20  lg:px-20 px-9"  id="testimonials">
         <h2 className="text-center text-3xl font-bold ">What Our Customers Say</h2>
-        <p className="text-center text-xl text-[#8a8989] my-2 ">Hear from real users who have simplified their lives with ChoreTrolly.</p> 
+        <p className="text-center text-xl text-[#8a8989] my-2 ">Hear from real users who have simplified their lives with Us.</p> 
         <div className=" grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-20 w-full mt-15 ">
 
           {reviews.map((review) => {
@@ -184,11 +186,14 @@ export default function Home() {
       </div>
     </div>
 
+      <LandingPage/>
 
       <div className="md:px-20 px-5 my-10">
         <JoinUs/>
       </div>
       <Footer/>
+
+      
     </div>
   );
 } 
