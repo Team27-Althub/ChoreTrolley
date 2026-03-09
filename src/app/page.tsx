@@ -186,7 +186,7 @@ export default function Home() {
       </div>
     </div>
 
-      <LandingPage/>
+      {/* <LandingPage/> */}
 
       <div className="md:px-20 px-5 my-10">
         <JoinUs/>
